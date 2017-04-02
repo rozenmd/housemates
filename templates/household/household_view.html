@@ -1,0 +1,15 @@
+{% extends "household/index.html" %}
+{% block main %}
+    <h2>Household - {{ household_name }}</h2>
+<form method="post">
+    {% csrf_token %}
+    <label>Please enter the Password for household: {{ household_name }}</label>
+    <br/>
+    {{ form.name }}<br/>
+    {{form.name.errors}}<br/>
+
+    {{ form.password }}<br/>
+    {{form.password.errors}}<br/>
+    <input type="submit" value="Enter" />
+</form>
+{% endblock %}

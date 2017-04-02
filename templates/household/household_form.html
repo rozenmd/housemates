@@ -1,0 +1,10 @@
+{% extends "household/index.html" %}
+{% block main %}
+{% for household in object_list %}
+    <li>{{ household.name }}  :
+    <a href="{% url "household_read" household.id %}">view</a>
+    <a href="{% url "household_edit" household.id %}">edit</a>
+    <a href="{% url "household_delete" household.id %}">delete</a>
+    </li>
+    {% endfor %}
+{% endblock %}
