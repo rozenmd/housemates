@@ -4,7 +4,7 @@ from django.conf.urls import include, url
 from django.conf.urls.i18n import i18n_patterns
 from django.contrib import admin
 from django.views.i18n import set_language
-
+from web.views import *
 from mezzanine.core.views import direct_to_template
 from mezzanine.conf import settings
 
@@ -29,6 +29,11 @@ if settings.USE_MODELTRANSLATION:
 urlpatterns += [
     # We don't want to presume how your homepage works, so here are a
     # few patterns you can use to set it up.
+
+    url(r'^bills/', include('bills.urls')),
+    url(r'^household/', include('household.urls')),
+    # url(r'^accounts/', include('registration.backends.simple.urls')),
+
 
     # HOMEPAGE AS STATIC TEMPLATE
     # ---------------------------

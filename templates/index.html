@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block meta_title %}{% trans "Home" %}{% endblock %}
+{% block title %}{% trans "Home" %}{% endblock %}
+
+{% block breadcrumb_menu %}
+<li class="active">{% trans "Home" %}</li>
+{% endblock %}
+
+{% block main %}
+<div class="text-center">
+<h2>Welcome to Housemates!</h2>
+<p>
+    This system is designed to make managing a household simpler.
+</p>
+
+{% if request.user.is_authenticated %}
+<p>
+    Click <a href="/bills/">here</a> to start tracking your household's expenses
+</p>
+{% else %}
+<p>You'll need to <a href="/accounts/signup/">register</a> or <a href="/accounts/login/">login</a> first!</p>
+{%  endif %}
+</div>
+
+
+{% endblock %}
