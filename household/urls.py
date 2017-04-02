@@ -8,4 +8,7 @@ urlpatterns = [
     url(r'^(?P<pk>\d+)/$', views.household_read, name='household_read'),
     url(r'^edit/(?P<pk>\d+)$', views.household_update, name='household_edit'),
     url(r'^delete/(?P<pk>\d+)$', views.household_delete, name='household_delete'),
+    url(r'^(?P<pk>\d+)/members/$', views.household_manage_members, name='household_manage_members'),
+    url(r'^(?P<pk>\d+)/members/delete/(?P<id>\d+)$', views.household_member_delete,
+        name='household_member_delete'),
     ]
