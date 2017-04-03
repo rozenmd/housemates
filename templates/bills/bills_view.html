@@ -1,0 +1,19 @@
+{% extends "bills/index.html" %}
+{% block main %}
+    <h2>Bill Detail</h2>
+{#<form method="post">#}
+{#    {% csrf_token %}#}
+{#    <label>Please enter the Password for bills: {{ bills_name }}</label>#}
+{#    <br/>#}
+{#    {{ form.name }}<br/>#}
+{#    {{form.name.errors}}<br/>#}
+{##}
+{#    {{ form.password }}<br/>#}
+{#    {{form.password.errors}}<br/>#}
+{#    <input type="submit" value="Enter" />#}
+{#</form>#}
+    <form method="post">{% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Submit" />
+</form>
+{% endblock %}

@@ -1,3 +1,4 @@
+from django.http import Http404
 from django.shortcuts import render, redirect, get_object_or_404
 from django.forms import ModelForm
 from django.contrib.admin.views.decorators import staff_member_required
@@ -46,6 +47,10 @@ def household_read(request, pk, template_name='household/household_view.html'):
 
 def household_update(request, pk, template_name='household/household_form.html'):
     household = get_object_or_404(Household, pk=pk)
+    current_user = request.user
+    match = HouseholdMember.objects.filter(member=current_user, household=household)
+    if not match:
+        raise Http404
     form = HouseholdForm(request.POST or None, instance=household)
     if form.is_valid():
         form.save()

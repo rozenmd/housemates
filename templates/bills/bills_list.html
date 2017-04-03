@@ -1,0 +1,15 @@
+{% extends "bills/index.html" %}
+{% block main %}
+<h1>Bills</h1>
+<ul>
+    {% for bills in object_list %}
+    <li>{{ bills.name }}  :
+    <a href="{% url "bills_read" bills.id %}">view</a>
+    <a href="{% url "bills_edit" bills.id %}">edit</a>
+    <a href="{% url "bills_delete" bills.id %}">delete</a>
+    </li>
+    {% endfor %}
+</ul>
+
+<a href="{% url "bills_new" %}">New</a>
+{% endblock %}
