@@ -4,12 +4,21 @@
 <ul>
     {% for household in object_list %}
     <li>{{ household.name }}  :
-    <a href="{% url "household_read" household.id %}">view</a>
-    <a href="{% url "household_edit" household.id %}">edit</a>
-    <a href="{% url "household_delete" household.id %}">delete</a>
+        {% for house in request.user.household.all %}
+            {% if house.household.id == household.id %}
+                <a href="{% url "household_read" household.id %}">View</a>
+            {% else %}
+                <a href="{% url "household_read" household.id %}">Join</a>
+            {% endif %}
+
+        {% endfor %}
+
+    {% if request.user.is_staff %}<a href="{% url "household_edit" household.id %}">edit</a>{% endif %}
+    {% if request.user.is_staff %}<a href="{% url "household_delete" household.id %}">delete</a>{% endif %}
     </li>
     {% endfor %}
 </ul>
+    {{ request.user.household.all.id }}
 
 <a href="{% url "household_new" %}">New</a>
 {% endblock %}
