@@ -1,0 +1,66 @@
+
+upstream %(proj_name)s {
+    server unix:%(proj_path)s/gunicorn.sock fail_timeout=0;
+}
+
+server {
+    listen 80;
+    server_name %(domains_nginx)s;
+
+    include /etc/nginx/snippets/letsencrypt.conf;
+
+    location / {
+        return 301 https://housemates.maxrozen.com$request_uri;
+    }
+
+}
+
+server {
+    server_name %(domains_nginx)s;
+    listen 443 ssl;
+    client_max_body_size 10M;
+    keepalive_timeout    15;
+    error_log /home/%(user)s/logs/%(proj_name)s_error_nginx.log info;
+
+    ssl_certificate /etc/letsencrypt/live/housemates.maxrozen.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/housemates.maxrozen.com/privkey.pem;
+    ssl_trusted_certificate /etc/letsencrypt/live/housemates.maxrozen.com/fullchain.pem;
+    include /etc/nginx/snippets/ssl.conf;
+
+
+    # Deny illegal Host headers
+    if ($host !~* ^(%(domains_regex)s)$) {
+        return 444;
+    }
+
+    location / {
+        proxy_redirect      off;
+        proxy_set_header    Host                    $host;
+        proxy_set_header    X-Real-IP               $remote_addr;
+        proxy_set_header    X-Forwarded-For         $proxy_add_x_forwarded_for;
+        proxy_set_header    X-Forwarded-Protocol    $scheme;
+        proxy_pass          http://%(proj_name)s;
+
+    }
+
+    location /static/ {
+        root            %(proj_path)s;
+        access_log      off;
+        log_not_found   off;
+        expires 30d;
+    }
+
+    location /robots.txt {
+        root            %(proj_path)s/static;
+        access_log      off;
+        log_not_found   off;
+    }
+
+    location /favicon.ico {
+        root            %(proj_path)s/static/img;
+        access_log      off;
+        log_not_found   off;
+    }
+
+}
+
