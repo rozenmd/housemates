@@ -4,29 +4,22 @@ upstream %(proj_name)s {
 }
 
 server {
+
     listen 80;
+    %(ssl_disabled)s listen 443 ssl;
     server_name %(domains_nginx)s;
-
-    include /etc/nginx/snippets/letsencrypt.conf;
-
-    location / {
-        return 301 https://housemates.maxrozen.com$request_uri;
-    }
-
-}
-
-server {
-    server_name %(domains_nginx)s;
-    listen 443 ssl;
     client_max_body_size 10M;
     keepalive_timeout    15;
     error_log /home/%(user)s/logs/%(proj_name)s_error_nginx.log info;
+    include /etc/nginx/snippets/letsencrypt.conf;
 
-    #ssl_certificate /etc/letsencrypt/live/housemates.maxrozen.com/fullchain.pem;
-    #ssl_certificate_key /etc/letsencrypt/live/housemates.maxrozen.com/privkey.pem;
-    #ssl_trusted_certificate /etc/letsencrypt/live/housemates.maxrozen.com/fullchain.pem;
-    #include /etc/nginx/snippets/ssl.conf;
-
+    %(ssl_disabled)s ssl_certificate      conf/%(proj_name)s.crt;
+    %(ssl_disabled)s ssl_certificate_key  conf/%(proj_name)s.key;
+    %(ssl_disabled)s ssl_session_cache    shared:SSL:10m;
+    %(ssl_disabled)s ssl_session_timeout  10m;
+    %(ssl_disabled)s ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-DSS-AES128-GCM-SHA256:kEDH+AESGCM:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA:ECDHE-ECDSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:DHE-DSS-AES128-SHA256:DHE-RSA-AES256-SHA256:DHE-DSS-AES256-SHA:DHE-RSA-AES256-SHA:AES128-GCM-SHA256:AES256-GCM-SHA384:AES128-SHA256:AES256-SHA256:AES128-SHA:AES256-SHA:AES:CAMELLIA:DES-CBC3-SHA:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!MD5:!PSK:!aECDH:!EDH-DSS-DES-CBC3-SHA:!EDH-RSA-DES-CBC3-SHA:!KRB5-DES-CBC3-SHA;
+    %(ssl_disabled)s ssl_prefer_server_ciphers on;
+    %(ssl_disabled)s ssl_protocols TLSv1.2 TLSv1.1 TLSv1;
 
     # Deny illegal Host headers
     if ($host !~* ^(%(domains_regex)s)$) {
@@ -39,7 +32,7 @@ server {
         proxy_set_header    X-Real-IP               $remote_addr;
         proxy_set_header    X-Forwarded-For         $proxy_add_x_forwarded_for;
         proxy_set_header    X-Forwarded-Protocol    $scheme;
-        proxy_pass          https://housemates.maxrozen.com;
+        proxy_pass          http://%(proj_name)s;
     }
 
     location /static/ {
@@ -47,9 +40,6 @@ server {
         access_log      off;
         log_not_found   off;
         expires 30d;
-    }
-    location /.well-known {
-        root            %(proj_path)s;
     }
 
     location /robots.txt {
@@ -65,4 +55,3 @@ server {
     }
 
 }
-
