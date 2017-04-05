@@ -101,7 +101,7 @@ ALLOWED_HOSTS = ['localhost','127.0.0.1', 'housemates.maxrozen.com']
 # timezone as the operating system.
 # If running in a Windows environment this must be set to the same as your
 # system time zone.
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Australia/Sydney'
 
 # If you set this to True, Django will use timezone-aware datetimes.
 USE_TZ = True
