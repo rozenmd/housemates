@@ -3,17 +3,13 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.forms import ModelForm
 from django.contrib.admin.views.decorators import staff_member_required
 from household.models import Household, HouseholdMember
-from .forms import EnterHouseholdForm
+from .forms import EnterHouseholdForm, HouseholdForm
 
 
-class HouseholdForm(ModelForm):
-    class Meta:
-        model = Household
-        fields = ['name', 'password']
 
 
 def household_list(request, template_name='household/household_list.html'):
-    households = Household.objects.all()
+    households = Household.objects.filter(household_member__member=request.user)
     data = {}
     data['object_list'] = households
     return render(request, template_name, data)
@@ -22,7 +18,8 @@ def household_list(request, template_name='household/household_list.html'):
 def household_create(request, template_name='household/household_form.html'):
     form = HouseholdForm(request.POST or None)
     if form.is_valid():
-        form.save()
+        household = form.save()
+        HouseholdMember(member=request.user,household=household).save()
         return redirect('household_list')
     return render(request, template_name, {'form': form})
 
@@ -36,13 +33,22 @@ def household_read(request, pk, template_name='household/household_view.html'):
         return redirect('household_manage_members', household.id)
     household_name = household.name
     form = EnterHouseholdForm(request.POST or None,initial={'name': household_name})
-    form.name = household_name
     if form.is_valid():
         print("Adding user to Household")
         HouseholdMember(member=current_user,household=household).save()
         return redirect('household_list')
 
     return render(request, template_name, {'household_name': household_name, 'form':form})
+
+def household_find(request, template_name='household/household_find.html'):
+    current_user = request.user
+    form = EnterHouseholdForm(request.POST or None)
+    if form.is_valid():
+        print("Adding user to Household")
+        HouseholdMember(member=current_user, household=form.cleaned_data['household']).save()
+        return redirect('household_list')
+
+    return render(request, template_name, {'form':form})
 
 
 def household_update(request, pk, template_name='household/household_form.html'):

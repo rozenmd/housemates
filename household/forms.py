@@ -1,10 +1,18 @@
 from django import forms
+from django.forms import ModelForm
+
 from .models import Household
 
 
+class HouseholdForm(ModelForm):
+
+    class Meta:
+        model = Household
+        fields = ['name', 'password']
+
 class EnterHouseholdForm(forms.Form):
-    name = forms.CharField(label="name", widget=forms.TextInput(attrs={'placeholder': "Household Name"}), required=False, disabled=True)
-    password = forms.CharField(label="password", widget=forms.TextInput(attrs={'placeholder': "Household Password"}), required=True)
+    name = forms.CharField(label="name", required=True)
+    password = forms.CharField(label="password", required=True)
 
     class Meta:
         # model = Household
@@ -26,3 +34,5 @@ class EnterHouseholdForm(forms.Form):
             else:
                 print("Wrong Password!")
                 raise forms.ValidationError(("That doesn't seem correct. Please try again."))
+
+

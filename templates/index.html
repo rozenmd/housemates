@@ -16,9 +16,16 @@
 </p>
 
 {% if request.user.is_authenticated %}
-<p>
-    Click <a href="/bills/">here</a> to start tracking your household's expenses
-</p>
+{% if not request.user.household.first.id %}
+    <p>
+        <p class="text-center">You'll need to <a href="{% url "household_new" %}">start</a> or
+            <a href="{% url "household_find" %}">join</a> a household first!</p>
+    </p>
+{% else %}
+    <p>
+        Click <a href="/bills/">here</a> to start tracking your household's expenses
+    </p>
+{% endif %}
 {% else %}
 <p>You'll need to <a href="/accounts/signup/">register</a> or <a href="/accounts/login/">login</a> first!</p>
 {%  endif %}

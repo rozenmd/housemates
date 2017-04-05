@@ -2,7 +2,8 @@
 {% block main %}
 <h1 class="text-center">Households</h1>
     {% if not request.user.household.first.id %}
-        <p class="text-center">You'll need to <a href="{% url "household_new" %}">start</a> or join a household first!</p>
+        <p class="text-center">You'll need to <a href="{% url "household_new" %}">start</a> or
+            <a href="{% url "household_find" %}">join</a> a household first!</p>
     {% else %}
         <ul>
     {% for household in object_list %}
