@@ -1,7 +1,10 @@
 {% extends "household/index.html" %}
 {% block main %}
-<h1>Households</h1>
-<ul>
+<h1 class="text-center">Households</h1>
+    {% if not request.user.household.first.id %}
+        <p class="text-center">You'll need to <a href="{% url "household_new" %}">start</a> or join a household first!</p>
+    {% else %}
+        <ul>
     {% for household in object_list %}
     <li>{{ household.name }}  :
         {% for house in request.user.household.all %}
@@ -17,8 +20,10 @@
     {% if request.user.is_staff %}<a href="{% url "household_delete" household.id %}">delete</a>{% endif %}
     </li>
     {% endfor %}
-</ul>
-    {{ request.user.household.all.id }}
+        </ul>
+
 
 <a href="{% url "household_new" %}">New</a>
+    {% endif %}
+
 {% endblock %}
