@@ -1,11 +1,12 @@
 {% extends "household/index.html" %}
 {% block main %}
 <h1 class="text-center">Households</h1>
-    <button class="btn-primary" href="{% url "household_new" %}">New</button>
+
     {% if not request.user.household.first.id %}
         <p class="text-center">You'll need to <a href="{% url "household_new" %}">start</a> or
             <a href="{% url "household_find" %}">join</a> a household first!</p>
     {% else %}
+        <a href="{% url "household_new" %}">New</a>
         <ul>
     {% for household in object_list %}
     <li>{{ household.name }} ---
