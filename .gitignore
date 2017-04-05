@@ -56,3 +56,8 @@ docs/_build/
 
 # PyBuilder
 target/
+*.idea/*
+*/local_settings.py
+*deploy/
+*static/*
+*/migrations/*

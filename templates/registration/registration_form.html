@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% load i18n mezzanine_tags %}
+
+{% block meta_title %}{{ title }}{% endblock %}
+{% block title %}{{ title }}{% endblock %}
+{% block body_id %}account{% endblock %}
+
+{% block banner %}{% endblock %}
+{% block search %}{% endblock %}
+
+{% block breadcrumb_menu %}
+{% endblock %}
+
+{% block main %}
+
+    <h1>{{ title }}</h1>
+    {% if request.user.is_authenticated %}
+        <p>{% trans "You're already logged in. If you'd like to create a new account, you'll need to log out first." %}</p>
+    {% else %}
+
+        <!-- ==== FORM ==== -->
+        <form method="post"{% if form.is_multipart %} enctype="multipart/form-data"{% endif %} id="signupForm">
+            {% nevercache %}
+                <input type="hidden" name="referrer" value="{{ request.META.HTTP_REFERER }}"/>
+                {% csrf_token %}
+            {% endnevercache %}
+
+
+            {% errors_for form %}
+
+
+            <div class="">
+                <div class="">
+                    <label for="inputUsername" class="control-label">{{ form.username.label }} <span
+                            class=""> *</span></label>
+                    {{ form.username }}
+                    {{ form.username.errors }}
+                </div><!-- ==== END COLUMN ONE ==== -->
+
+                <div class="">
+                    <label for="inputEmail3" class="control-label">{{ form.email.label }} <span
+                            class=""> *</span></label>
+                    {{ form.email }}
+                    {{ form.email.errors }}
+                </div>
+            </div><!-- ==== end row ==== -->
+
+            <div class="">
+                <div class="">
+                    <label for="inputUsername" class="control-label">Password<span
+                            class="mandatory_fields"> *</span></label>
+                    {{ form.password1 }}
+                    {{ form.password1.errors }}
+                </div>
+
+                <div class="">
+                    <label for="inputEmail3" class="control-label">Confirm Password<span
+                            class="mandatory_fields"> *</span></label>
+                    {{ form.password2 }}
+                    {{ form.password2.errors }}
+                </div>
+            </div><!-- ==== end row ==== -->
+
+            <!-- === SUBMIT BUTTON === -->
+
+            <!-- === SUBMIT BUTTON === -->
+            <div class="">
+                {% block account_form_actions %}
+                    <input class="btn btn-primary btn-lg" type="submit" value="{{ title }}">
+                {% endblock %}
+            </div>
+
+        </form><!-- === END FORM === -->
+
+        <!-- === END ROW === -->
+
+        {% if settings.ACCOUNTS_APPROVAL_REQUIRED %}
+            <p>{% trans "After signing up, your account will be reviewed for approval. You'll receive an email when your account is activated." %}</p>
+        {% elif settings.ACCOUNTS_VERIFICATION_REQUIRED %}
+            <p>{% trans "After signing up, you'll receive an email with a link you need to click, in order to activate your account." %}</p>
+        {% endif %}
+
+
+    {% endif %}
+
+
+{% endblock %}
+
