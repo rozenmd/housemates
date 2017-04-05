@@ -22,9 +22,9 @@ server {
     keepalive_timeout    15;
     error_log /home/%(user)s/logs/%(proj_name)s_error_nginx.log info;
 
-    ssl_certificate /etc/letsencrypt/live/maxrozen.com/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/maxrozen.com/privkey.pem;
-    ssl_trusted_certificate /etc/letsencrypt/live/maxrozen.com/fullchain.pem;
+    ssl_certificate /etc/letsencrypt/live/housemates.maxrozen.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/housemates.maxrozen.com/privkey.pem;
+    ssl_trusted_certificate /etc/letsencrypt/live/housemates.maxrozen.com/fullchain.pem;
     include /etc/nginx/snippets/ssl.conf;
 
 
@@ -47,6 +47,9 @@ server {
         access_log      off;
         log_not_found   off;
         expires 30d;
+    }
+    location /.well-known {
+        root            %(proj_path)s;
     }
 
     location /robots.txt {
