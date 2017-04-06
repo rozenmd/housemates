@@ -59,5 +59,11 @@ target/
 *.idea/*
 */local_settings.py
 
-*static/*
+static/admin*
+static/filebrowser*
+static/fonts*
+static/grappelli*
+static/media*
+static/mezzanine*
+static/test*
 */migrations/*
