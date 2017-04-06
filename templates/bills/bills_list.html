@@ -1,15 +1,55 @@
 {% extends "bills/index.html" %}
+{% load humanize %}
+
 {% block main %}
 <h1>Bills</h1>
-<ul>
-    {% for bills in object_list %}
-    <li>{{ bills.name }}  :
-    <a href="{% url "bills_read" bills.id %}">view</a>
-    <a href="{% url "bills_edit" bills.id %}">edit</a>
-    <a href="{% url "bills_delete" bills.id %}">delete</a>
-    </li>
-    {% endfor %}
-</ul>
+
+{#'who_paid', 'description', 'quantity_paid', 'household'#}
+<table class="table table-striped table-hover table-responsive">
+<thead>
+<tr>
+    <td>
+        Who Paid
+    </td>
+    <td>
+        Description
+    </td>
+    <td>
+        Quantity paid
+    </td>
+    <td>
+        Household - temp
+    </td>
+    <td></td>
+</tr>
+</thead>
+<tbody>
+{% for bill in object_list %}
+<tr>
+    <td>
+        {{  bill.who_paid }}
+    </td>
+    <td>
+        {{ bill.description }}
+    </td>
+    <td>
+        ${{ bill.quantity_paid | intcomma}}
+    </td>
+    <td>
+        {{ bill.household.name }}
+    </td>
+    <td>
+        <a href="{% url "bills_edit" bill.id %}">edit</a> | <a href="{% url "bills_delete" bill.id %}">delete</a>
+    </td>
+</tr>
+
+
+{% endfor %}
+</tbody>
+</table>
+
+
+
 
 <a href="{% url "bills_new" %}">New</a>
 {% endblock %}
