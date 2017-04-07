@@ -7,19 +7,37 @@
             <a href="{% url "household_find" %}">join</a> a household first!</p>
     {% else %}
         <a href="{% url "household_new" %}">New</a>
-        <ul>
-    {% for household in object_list %}
-    <li>{{ household.name }} ---
-        {% for house in request.user.household.all %}
+    <ul>
+<table class="table table-striped table-hover table-responsive">
+        <thead>
+            <td>
+                
+            </td>
+            <td>
+
+            </td>
+        </thead>
+        <tbody>
+            {% for household in object_list %}
+
+        <tr>
+            <td>{{ household.name }}</td>
+            <td>
+                {% for house in request.user.household.all %}
             {% if house.household.id == household.id %}
                 <a href="{% url "household_read" household.id %}">View</a>
             {% endif %}
         {% endfor %}
 
-    | <a href="{% url "household_edit" household.id %}">Edit</a> | <a href="{% url "household_delete" household.id %}">Delete</a>
-    </li>
-    {% endfor %}
-        </ul>
+            | <a href="{% url "household_edit" household.id %}">Edit</a>
+            | <a href="{% url "household_delete" household.id %}">Delete</a>
+            </td>
+        </tr>
+                {% endfor %}
+        </tbody>
+
+    </table>
+
 
 
 
