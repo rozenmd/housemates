@@ -242,6 +242,7 @@ INSTALLED_APPS = (
     "django.contrib.sites",
     "django.contrib.sitemaps",
     "django.contrib.staticfiles",
+    'django.contrib.humanize',
     "mezzanine.boot",
     "mezzanine.conf",
     "mezzanine.core",

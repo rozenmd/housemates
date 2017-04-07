@@ -3,9 +3,15 @@
 <h1>Household Members</h1>
 <ul>
     {% for member in object_list %}
-    <li>{{ member.member.first_name }} {{ member.member.last_name }}:
-    <a href="{% url "household_member_delete" member.household.id member.id %}">delete</a>
-    </li>
+    {% if member.member.first_name %}
+        <li>{{ member.member.first_name }} {{ member.member.last_name }}:
+            <a href="{% url "household_member_delete" member.household.id member.id %}">delete</a>
+        </li>
+    {% else %}
+        <li>{{ member.member.email }}:
+            <a href="{% url "household_member_delete" member.household.id member.id %}">delete</a>
+        </li>
+    {% endif %}
     {% endfor %}
 </ul>
 
