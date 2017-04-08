@@ -10,7 +10,11 @@ from django.contrib import messages
 
 def household_list(request, template_name='household/household_list.html'):
     households = Household.objects.filter(household_member__member=request.user)
-    current_household = get_object_or_404(Household, pk=request.session.get('household'))
+    session_house = request.session.get('household')
+    if session_house:
+        current_household = get_object_or_404(Household, pk=session_house)
+    else:
+        current_household = ''
     data = {'object_list': households, 'current_household': current_household}
     return render(request, template_name, data)
 

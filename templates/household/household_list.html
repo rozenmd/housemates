@@ -2,7 +2,9 @@
 {% block main %}
 <h1 class="text-center">Households</h1>
 {% if current_household %}
-    Current household: <b>{{ current_household }}</b>
+    <p>Current household: <b>{{ current_household }}</b></p>
+{% else %}
+    <p>Set a current household!</p>
 {% endif %}
     {% if not request.user.household.first.id %}
         <p class="text-center">You'll need to <a href="{% url "household_new" %}">start</a> or
