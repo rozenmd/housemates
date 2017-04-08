@@ -4,6 +4,7 @@ from django.forms import ModelForm
 from django.contrib.admin.views.decorators import staff_member_required
 from bills.models import Bill, Payment
 from household.models import HouseholdMember, Household
+from bills.forms import BillForm
 
 
 # Create your views here.
