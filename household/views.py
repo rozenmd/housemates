@@ -4,14 +4,14 @@ from django.forms import ModelForm
 from django.contrib.admin.views.decorators import staff_member_required
 from household.models import Household, HouseholdMember
 from .forms import EnterHouseholdForm, HouseholdForm
-
+from django.contrib import messages
 
 
 
 def household_list(request, template_name='household/household_list.html'):
     households = Household.objects.filter(household_member__member=request.user)
-    data = {}
-    data['object_list'] = households
+    current_household = get_object_or_404(Household, pk=request.session.get('household'))
+    data = {'object_list': households, 'current_household': current_household}
     return render(request, template_name, data)
 
 
@@ -95,3 +95,9 @@ def household_manage_members(request, pk, template_name='household/household_mem
         return render(request, template_name, data)
     else:
         return redirect('household_list')
+
+def set_current_household(request, pk):
+    request.session['household'] = pk
+    messages.add_message(request, messages.INFO, 'Current household updated!')
+
+    return redirect('household_list')

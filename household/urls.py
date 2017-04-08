@@ -12,4 +12,5 @@ urlpatterns = [
     url(r'^(?P<pk>\d+)/members/$', views.household_manage_members, name='household_manage_members'),
     url(r'^(?P<pk>\d+)/members/delete/(?P<id>\d+)$', views.household_member_delete,
         name='household_member_delete'),
+    url(r'^set_household/(?P<pk>\d+)$', views.set_current_household, name='set_current_household'),
     ]
