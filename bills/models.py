@@ -18,7 +18,8 @@ class Bill(TimeStamped):
     description = models.TextField()
     quantity_paid = models.DecimalField(max_digits=10, decimal_places=2)
     household = models.ForeignKey(Household, related_name='bill')
+    who_owes = models.ManyToManyField(HouseholdMember)
 
-class Debt(TimeStamped):
-    incurred_cost = models.ForeignKey(HouseholdMember, related_name='money_owed')
-    bill = models.ForeignKey(Bill, related_name='who_owes')
+# class Debt(TimeStamped):
+#     who_incurred_cost = models.ForeignKey(HouseholdMember, related_name='money_owed')
+#     bill = models.ForeignKey(Bill, related_name='who_owes')

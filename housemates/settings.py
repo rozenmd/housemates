@@ -256,6 +256,7 @@ INSTALLED_APPS = (
     # "mezzanine.mobile",
 )
 ACCOUNTS_PROFILE_MODEL = "web.MyProfile"
+# ACCOUNTS_PROFILE_MODEL = "web.MyProfile"
 ACCOUNTS_NO_USERNAME = True
 # List of middleware classes to use. Order is important; in the request phase,
 # these middleware classes will be applied in the order given, and in the

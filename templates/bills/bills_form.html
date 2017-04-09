@@ -1,7 +1,69 @@
 {% extends "bills/index.html" %}
+{% load humanize %}
 {% block main %}
-<form method="post">{% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Submit" />
-</form>
+<h1>Bills</h1>
+{% if current_household %}
+    <p>Current household: <b>{{ current_household }}</b></p>
+{% else %}
+    <p>Set a current household!</p>
+{% endif %}
+{#'who_paid', 'description', 'quantity_paid', 'household'#}
+<table class="table table-striped table-hover table-responsive">
+<thead>
+<tr>
+    <td>
+        Who Paid
+    </td>
+    <td>
+        Description
+    </td>
+    <td>
+        Quantity paid
+    </td>
+    <td>
+        Who Owes
+    </td>
+<td></td>
+</tr>
+</thead>
+<tbody>
+{% for bill in object_list %}
+<tr>
+    <td>
+        {{  bill.who_paid }}
+    </td>
+    <td>
+        {{ bill.description }}
+    </td>
+    <td>
+        ${{ bill.quantity_paid | intcomma}}
+    </td>
+    <td>
+         {% for person in bill.who_owes.all %}
+
+            {% if person.member.first_name %}{{ person.member.first_name }} {{ person.member.last_name }}
+            {% else %}
+                {{ person.member.email }}
+            {% endif %}
+            <br/>
+        {% endfor %}
+    </td>
+<td></td>
+
+</tr>
+{% endfor %}
+<tr>
+    <form method="post">{% csrf_token %}
+        <td>{{ form.who_paid }}{{ form.who_paid.errors }}</td>
+        <td>{{ form.description }}{{ form.description.errors }}</td>
+        <td>{{ form.quantity_paid }}{{ form.quantity_paid.errors }}</td>
+        <td>{{ form.who_owes }}{{ form.who_owes.errors }}</td>
+        {{ form.household.as_hidden }}
+        <td><input type="submit" value="Submit" /></td>
+
+    </form>
+</tr>
+</tbody>
+</table>
+
 {% endblock %}

@@ -1,3 +1,4 @@
+from django.core.exceptions import ValidationError
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.forms import ModelForm
@@ -5,17 +6,24 @@ from django.contrib.admin.views.decorators import staff_member_required
 from bills.models import Bill, Payment
 from household.models import HouseholdMember, Household
 from bills.forms import BillForm
-
+from web.models import MyProfile
 
 # Create your views here.
 
 
 def bills_list(request, template_name='bills/bills_list.html'):
-    current_user = request.user
-    match = HouseholdMember.objects.filter(member=current_user)
+    households = Household.objects.filter(household_member__member=request.user)
+    profile = MyProfile.objects.filter(user=request.user)
+    if len(profile) > 0:
+        current_household = get_object_or_404(Household, pk=profile.first().current_household)
+    else:
+        current_household = ''
+    data = {'current_household': current_household}
+
+    match = HouseholdMember.objects.filter(member=request.user)
     if match:
-        bills = Bill.objects.all()
-        data = {}
+        bills = Bill.objects.filter(household=current_household)
+
         data['object_list'] = bills
         return render(request, template_name, data)
     else:
@@ -33,11 +41,26 @@ def bills_list(request, template_name='bills/bills_list.html'):
 
 
 def bills_create(request, template_name='bills/bills_form.html'):
-    form = BillForm(request.POST or None)
+    households = Household.objects.filter(household_member__member=request.user)
+    profile = MyProfile.objects.filter(user=request.user)
+    if len(profile) > 0:
+        current_household = get_object_or_404(Household, pk=profile.first().current_household)
+    else:
+        current_household = ''
+    data = {'current_household': current_household}
+    match = HouseholdMember.objects.filter(member=request.user)
+    if match:
+        bills = Bill.objects.filter(household=current_household)
+        data['object_list'] = bills
+
+    form = BillForm(request.POST or None, initial={'household': current_household})
+    form.fields['who_paid'].queryset = HouseholdMember.objects.filter(household=current_household)
+    form.fields['who_owes'].queryset = HouseholdMember.objects.filter(household=current_household)
     if form.is_valid():
         form.save()
         return redirect('bills_list')
-    return render(request, template_name, {'form': form})
+    data['form'] = form
+    return render(request, template_name, data)
 
 
 def bills_read(request, pk, template_name='bills/bills_view.html'):
