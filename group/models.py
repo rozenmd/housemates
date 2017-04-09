@@ -23,4 +23,4 @@ class GroupMember(TimeStamped):
         unique_together = ('group', 'member',)
 
     def __str__(self):
-        return self.member.username
+        return self.member.first_name + ' ' + self.member.last_name
