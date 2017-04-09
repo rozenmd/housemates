@@ -4,7 +4,7 @@ from django.conf.urls import include, url
 from django.conf.urls.i18n import i18n_patterns
 from django.contrib import admin
 from django.views.i18n import set_language
-from web.views import *
+import web.views
 from mezzanine.core.views import direct_to_template
 from mezzanine.conf import settings
 
@@ -33,6 +33,7 @@ urlpatterns += [
     url(r'^bills/', include('bills.urls')),
     url(r'^payments/', include('payments.urls')),
     url(r'^group/', include('group.urls')),
+    url(r'^dashboard/$', web.views.dashboard, name='dashboard'),
     # url(r'^accounts/', include('registration.backends.simple.urls')),
 
 

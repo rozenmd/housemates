@@ -8,7 +8,6 @@ from web.models import MyProfile
 
 # Create your views here.
 
-
 def payments_list(request, template_name='payments/payments_list.html'):
     groups = Group.objects.filter(group_member__member=request.user)
     profile = MyProfile.objects.filter(user=request.user)
