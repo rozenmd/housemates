@@ -259,8 +259,6 @@ INSTALLED_APPS = (
 EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"  # or sendgrid.EmailBackend, or...
 DEFAULT_FROM_EMAIL = "noreply@housemates.maxrozen.com"  # if you don't already have this in settings
 
-ACCOUNTS_PROFILE_MODEL = "web.MyProfile"
-# ACCOUNTS_PROFILE_MODEL = "web.MyProfile"
 ACCOUNTS_NO_USERNAME = True
 # List of middleware classes to use. Order is important; in the request phase,
 # these middleware classes will be applied in the order given, and in the
