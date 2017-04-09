@@ -9,20 +9,6 @@ from bills.forms import BillForm
 
 # Create your views here.
 
-class BillForm(ModelForm):
-    class Meta:
-        model = Bill
-        fields = ['who_paid', 'description', 'quantity_paid', 'household']
-
-    def __init__(self, test, *args, **kwargs):
-        super(BillForm, self).__init__(*args, **kwargs)
-        # if "instance" in kwargs and kwargs["instance"] is not None:
-        #     product = kwargs["instance"].product
-        #     qs = self.fields["image"].queryset.filter(product=product)
-        #     self.fields["image"].queryset = qs
-        # else:
-        #     self.fields["image"].queryset = self.fields["image"].queryset.none()
-
 
 def bills_list(request, template_name='bills/bills_list.html'):
     current_user = request.user

@@ -5,14 +5,14 @@ from django.contrib.admin.views.decorators import staff_member_required
 from household.models import Household, HouseholdMember
 from .forms import EnterHouseholdForm, HouseholdForm
 from django.contrib import messages
-
+from web.models import MyProfile
 
 
 def household_list(request, template_name='household/household_list.html'):
     households = Household.objects.filter(household_member__member=request.user)
-    session_house = request.session.get('household')
-    if session_house:
-        current_household = get_object_or_404(Household, pk=session_house)
+    profile = MyProfile.objects.filter(user=request.user)
+    if len(profile) > 0:
+        current_household = get_object_or_404(Household, pk=profile.first().current_household)
     else:
         current_household = ''
     data = {'object_list': households, 'current_household': current_household}
@@ -101,7 +101,13 @@ def household_manage_members(request, pk, template_name='household/household_mem
         return redirect('household_list')
 
 def set_current_household(request, pk):
-    request.session['household'] = pk
+    profile = MyProfile.objects.filter(user=request.user)
+    if len(profile) > 0:
+        profile = MyProfile.objects.get(user=request.user)
+        profile.current_household = pk
+        profile.save()
+    else:
+        MyProfile(user=request.user, current_household=pk).save()
     messages.add_message(request, messages.INFO, 'Current household updated!')
 
     return redirect('household_list')
