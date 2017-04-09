@@ -49,7 +49,8 @@ def household_find(request, template_name='household/household_find.html'):
     form = EnterHouseholdForm(request.POST or None)
     if form.is_valid():
         print("Adding user to Household")
-        HouseholdMember(member=current_user, household=form.cleaned_data['household']).save()
+        house = Household.objects.get(name=form.cleaned_data['name'])
+        HouseholdMember(member=current_user, household=house).save()
         return redirect('household_list')
 
     return render(request, template_name, {'form':form})
