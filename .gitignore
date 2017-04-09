@@ -58,7 +58,7 @@ docs/_build/
 target/
 *.idea/*
 */local_settings.py
-
+*/migrations/*
 static/admin*
 static/filebrowser*
 static/fonts*
