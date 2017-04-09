@@ -31,7 +31,7 @@ urlpatterns += [
     # few patterns you can use to set it up.
 
     url(r'^bills/', include('bills.urls')),
-    url(r'^household/', include('household.urls')),
+    url(r'^group/', include('group.urls')),
     # url(r'^accounts/', include('registration.backends.simple.urls')),
 
 

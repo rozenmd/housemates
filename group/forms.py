@@ -1,16 +1,16 @@
 from django import forms
 from django.forms import ModelForm
 
-from .models import Household
+from .models import Group
 
 
-class HouseholdForm(ModelForm):
+class GroupForm(ModelForm):
 
     class Meta:
-        model = Household
+        model = Group
         fields = ['name', 'password']
 
-class EnterHouseholdForm(forms.Form):
+class EnterGroupForm(forms.Form):
     name = forms.CharField(label="name", required=True)
     password = forms.CharField(label="password", required=True)
 
@@ -24,11 +24,11 @@ class EnterHouseholdForm(forms.Form):
         """
         name = self.cleaned_data.get("name")
         pw = self.cleaned_data.get("password")
-        qs = Household.objects.filter(name=name).count()
+        qs = Group.objects.filter(name=name).count()
         if qs == 0:
-            forms.ValidationError(("That household doesn't exist!"))
-        for household in Household.objects.filter(name=name):
-            if pw == household.password:
+            forms.ValidationError(("That group doesn't exist!"))
+        for group in Group.objects.filter(name=name):
+            if pw == group.password:
                 print("Match!")
 
             else:

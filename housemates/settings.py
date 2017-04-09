@@ -231,7 +231,7 @@ if DJANGO_VERSION < (1, 9):
 
 INSTALLED_APPS = (
     "bills",
-    "household",
+    "group",
     "web",
     "anymail",
     "django.contrib.admin",

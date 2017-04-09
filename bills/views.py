@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.forms import ModelForm
 from django.contrib.admin.views.decorators import staff_member_required
 from bills.models import Bill, Payment
-from household.models import HouseholdMember, Household
+from group.models import GroupMember, Group
 from bills.forms import BillForm
 from web.models import MyProfile
 
@@ -12,23 +12,23 @@ from web.models import MyProfile
 
 
 def bills_list(request, template_name='bills/bills_list.html'):
-    households = Household.objects.filter(household_member__member=request.user)
+    groups = Group.objects.filter(group_member__member=request.user)
     profile = MyProfile.objects.filter(user=request.user)
     if len(profile) > 0:
-        current_household = get_object_or_404(Household, pk=profile.first().current_household)
+        current_group = get_object_or_404(Group, pk=profile.first().current_group)
     else:
-        current_household = ''
-    data = {'current_household': current_household}
+        current_group = ''
+    data = {'current_group': current_group}
 
-    match = HouseholdMember.objects.filter(member=request.user)
+    match = GroupMember.objects.filter(member=request.user)
     if match:
-        bills = Bill.objects.filter(household=current_household)
+        bills = Bill.objects.filter(group=current_group)
 
         data['object_list'] = bills
         return render(request, template_name, data)
     else:
         return HttpResponse("""
-        <h1>You need to join or create a household!</h1>
+        <h1>You need to join or create a group!</h1>
         <button onclick="goBack()">Go Back</button>
         
         <script>
@@ -41,21 +41,21 @@ def bills_list(request, template_name='bills/bills_list.html'):
 
 
 def bills_create(request, template_name='bills/bills_form.html'):
-    households = Household.objects.filter(household_member__member=request.user)
+    groups = Group.objects.filter(group_member__member=request.user)
     profile = MyProfile.objects.filter(user=request.user)
     if len(profile) > 0:
-        current_household = get_object_or_404(Household, pk=profile.first().current_household)
+        current_group = get_object_or_404(Group, pk=profile.first().current_group)
     else:
-        current_household = ''
-    data = {'current_household': current_household}
-    match = HouseholdMember.objects.filter(member=request.user)
+        current_group = ''
+    data = {'current_group': current_group}
+    match = GroupMember.objects.filter(member=request.user)
     if match:
-        bills = Bill.objects.filter(household=current_household)
+        bills = Bill.objects.filter(group=current_group)
         data['object_list'] = bills
 
-    form = BillForm(request.POST or None, initial={'household': current_household})
-    form.fields['who_paid'].queryset = HouseholdMember.objects.filter(household=current_household)
-    form.fields['who_owes'].queryset = HouseholdMember.objects.filter(household=current_household)
+    form = BillForm(request.POST or None, initial={'group': current_group})
+    form.fields['who_paid'].queryset = GroupMember.objects.filter(group=current_group)
+    form.fields['who_owes'].queryset = GroupMember.objects.filter(group=current_group)
     if form.is_valid():
         form.save()
         return redirect('bills_list')

@@ -3,12 +3,12 @@
 
 {% block main %}
 <h1>Bills</h1>
-{% if current_household %}
-    <p>Current household: <b>{{ current_household }}</b></p>
+{% if current_group %}
+    <p>Current group: <b>{{ current_group }}</b></p>
 {% else %}
-    <p>Set a current household!</p>
+    <p>Set a current group!</p>
 {% endif %}
-{#'who_paid', 'description', 'quantity_paid', 'household'#}
+{#'who_paid', 'description', 'quantity_paid', 'group'#}
 <table class="table table-striped table-hover table-responsive">
 <thead>
 <tr>
