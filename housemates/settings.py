@@ -233,7 +233,7 @@ INSTALLED_APPS = (
     "bills",
     "household",
     "web",
-
+    "anymail",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -255,6 +255,9 @@ INSTALLED_APPS = (
     "mezzanine.accounts",
     # "mezzanine.mobile",
 )
+
+EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"  # or sendgrid.EmailBackend, or...
+
 ACCOUNTS_PROFILE_MODEL = "web.MyProfile"
 # ACCOUNTS_PROFILE_MODEL = "web.MyProfile"
 ACCOUNTS_NO_USERNAME = True
