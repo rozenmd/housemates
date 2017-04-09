@@ -256,7 +256,7 @@ INSTALLED_APPS = (
     # "mezzanine.mobile",
 )
 
-EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"  # or sendgrid.EmailBackend, or...
+
 
 ACCOUNTS_PROFILE_MODEL = "web.MyProfile"
 # ACCOUNTS_PROFILE_MODEL = "web.MyProfile"
