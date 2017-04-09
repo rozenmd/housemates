@@ -35,3 +35,9 @@ CACHES = {
 }
 
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+
+ANYMAIL = {
+    "MAILGUN_API_KEY": "%(mailgun_api_key)s",
+    "MAILGUN_SENDER_DOMAIN": "%(mailgun_sender_domain)s",
+}
+

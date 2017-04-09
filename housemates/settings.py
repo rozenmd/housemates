@@ -256,7 +256,8 @@ INSTALLED_APPS = (
     # "mezzanine.mobile",
 )
 
-
+EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"  # or sendgrid.EmailBackend, or...
+DEFAULT_FROM_EMAIL = "noreply@housemates.maxrozen.com"  # if you don't already have this in settings
 
 ACCOUNTS_PROFILE_MODEL = "web.MyProfile"
 # ACCOUNTS_PROFILE_MODEL = "web.MyProfile"
