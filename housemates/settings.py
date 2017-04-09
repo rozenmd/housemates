@@ -231,6 +231,7 @@ if DJANGO_VERSION < (1, 9):
 
 INSTALLED_APPS = (
     "bills",
+    "payments",
     "group",
     "web",
     "anymail",

@@ -1,0 +1,49 @@
+{% extends "payments/index.html" %}
+{% load humanize %}
+{% block main %}
+<h1>Payments</h1>
+
+{#'who_paid', 'description', 'quantity_paid', 'group'#}
+<table class="table table-striped table-hover table-responsive">
+<thead>
+<tr>
+    <td>
+        Who Paid
+    </td>
+    <td>
+        Description
+    </td>
+    <td>
+        Quantity paid
+    </td>
+    <td>
+        Household - temp
+    </td>
+
+</tr>
+</thead>
+<tbody>
+{% for bill in object_list %}
+<tr>
+    <td>
+        {{  bill.who_paid }}
+    </td>
+    <td>
+        {{ bill.description }}
+    </td>
+    <td>
+        ${{ bill.quantity_paid | intcomma}}
+    </td>
+    <td>
+        {{ bill.group.name }}
+    </td>
+
+</tr>
+{% endfor %}
+ <form method="post">{% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Submit" />
+</form>
+</tbody>
+</table>
+{% endblock %}

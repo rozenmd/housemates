@@ -1,9 +1,6 @@
-from django.core.exceptions import ValidationError
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
-from django.forms import ModelForm
-from django.contrib.admin.views.decorators import staff_member_required
-from bills.models import Bill, Payment
+from bills.models import Bill
 from group.models import GroupMember, Group
 from bills.forms import BillForm
 from web.models import MyProfile

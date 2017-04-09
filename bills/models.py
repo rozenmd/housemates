@@ -7,11 +7,6 @@ from group.models import Group, GroupMember
 
 
 
-class Payment(TimeStamped):
-    from_user = models.ForeignKey(GroupMember, related_name='payment_made')
-    to_user = models.ForeignKey(GroupMember, related_name='payment_received')
-    group = models.ForeignKey(Group, related_name='payment')
-
 
 class Bill(TimeStamped):
     who_paid = models.ForeignKey(GroupMember, related_name='bill_paid')

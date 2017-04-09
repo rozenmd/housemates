@@ -1,0 +1,68 @@
+{% extends "payments/index.html" %}
+{% load humanize %}
+{% block main %}
+<h1>Payments</h1>
+{% if current_group %}
+    <p>Current group: <b>{{ current_group }}</b></p>
+{% else %}
+    <p>Set a current group!</p>
+{% endif %}
+{#'who_paid', 'description', 'quantity_paid', 'group'#}
+<table class="table table-striped table-hover table-responsive">
+<thead>
+<tr>
+    <td>
+        From
+    </td>
+    <td>
+        To
+    </td>
+    <td>
+        Quantity paid
+    </td>
+
+<td></td>
+</tr>
+</thead>
+<tbody>
+{% for payment in object_list %}
+<tr>
+    <td>
+        {% if payment.from_user.member.first_name %}
+            {{ payment.from_user.member.first_name }} {{ payment.from_user.member.last_name }}
+        {% else %}
+        {{  payment.from_user.member.email }}
+        {% endif %}
+
+    </td>
+    <td>
+        {% if payment.to_user.member.first_name %}
+            {{ payment.to_user.member.first_name }} {{ payment.to_user.member.last_name }}
+        {% else %}
+        {{  payment.to_user.member.email }}
+        {% endif %}
+    </td>
+    <td>
+        ${{ payment.quantity_paid | intcomma}}
+    </td>
+
+    <td>
+
+    </td>
+</tr>
+{% endfor %}
+<tr>
+    <form method="post">{% csrf_token %}
+        <td>{{ form.from_user }}{{ form.from_user.errors }}</td>
+        <td>{{ form.to_user }}{{ form.to_user.errors }}</td>
+        <td>{{ form.quantity_paid }}{{ form.quantity_paid.errors }}</td>
+
+        {{ form.group.as_hidden }}
+        <td><input type="submit" value="Submit" /></td>
+
+    </form>
+</tr>
+</tbody>
+</table>
+
+{% endblock %}
