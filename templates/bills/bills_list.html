@@ -31,7 +31,12 @@
 {% for bill in object_list %}
 <tr>
     <td>
-        {{  bill.who_paid }}
+        {% if bill.who_paid.member.first_name %}
+            {{ bill.who_paid.member.first_name }} {{ bill.who_paid.member.last_name }}
+        {% else %}
+        {{  bill.who_paid.member.email }}
+        {% endif %}
+
     </td>
     <td>
         {{ bill.description }}
