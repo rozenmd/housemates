@@ -50,6 +50,8 @@ env.user = conf.get("SSH_USER", getuser())
 env.password = conf.get("SSH_PASS", None)
 env.key_filename = conf.get("SSH_KEY_PATH", None)
 env.hosts = conf.get("HOSTS", [""])
+env.mailgun_api_key = conf.get("MAILGUN_API_KEY", None)
+env.mailgun_sender_domain = conf.get("MAILGUN_SENDER_DOMAIN", None)
 
 env.proj_name = conf.get("PROJECT_NAME", env.proj_app)
 env.venv_home = conf.get("VIRTUALENV_HOME", "/home/%s/.virtualenvs" % env.user)
