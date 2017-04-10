@@ -35,24 +35,24 @@ def dashboard(request, template_name='web/dashboard.html'):
         # Calculate the total owed per bill first:
         bill_dict = {}
         for member in members:
-            bill_dict[str(member)] = 0
+            bill_dict[str(member)] = Decimal(0)
         for bill in bills:
             number_owing = Decimal(len(bill.who_owes.all()))
             q = bill.quantity_paid
             r = number_owing
             p = q/r
-            p = (p.quantize(Decimal('.001'), rounding=ROUND_05UP)).quantize(Decimal('.01'),rounding=ROUND_HALF_UP)
+            p = p.quantize(Decimal('.01'), rounding=ROUND_HALF_UP)
             bill_per_person = p
 
             for debtor in bill.who_owes.all():
                 if debtor == bill.who_paid:
-                    bill_dict[str(debtor)] += bill_per_person-bill.quantity_paid#They've already paid
+                    bill_dict[str(debtor)] += (bill_per_person-bill.quantity_paid).quantize(Decimal('.01'), rounding=ROUND_HALF_UP)
                 elif str(debtor) in bill_dict:
                     bill_dict[str(debtor)] += bill_per_person
         for payment in payments:
             bill_dict[str(payment.from_user)] -= payment.quantity_paid
             bill_dict[str(payment.to_user)] += payment.quantity_paid
-        lists = []
+
 
         # bill_dict = simplejson.dumps(bill_dict)
         qs = bills
