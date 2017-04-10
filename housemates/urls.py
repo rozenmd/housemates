@@ -5,6 +5,7 @@ from django.conf.urls.i18n import i18n_patterns
 from django.contrib import admin
 from django.views.i18n import set_language
 import web.views
+from web.views import line_chart_json
 from mezzanine.core.views import direct_to_template
 from mezzanine.conf import settings
 
@@ -34,6 +35,9 @@ urlpatterns += [
     url(r'^payments/', include('payments.urls')),
     url(r'^group/', include('group.urls')),
     url(r'^dashboard/$', web.views.dashboard, name='dashboard'),
+
+    url(r'^line_chart/json/$', web.views.line_chart_json,
+        name='line_chart_json'),
     # url(r'^accounts/', include('registration.backends.simple.urls')),
 
 

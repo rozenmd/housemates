@@ -235,6 +235,7 @@ INSTALLED_APPS = (
     "group",
     "web",
     "anymail",
+    'chartjs',
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
