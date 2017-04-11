@@ -8,7 +8,7 @@
     <ul class="list-group">
     {% for key, value in lah.items %}
             {% if value < 0 %}
-                <li class="list-group-item list-group-item-success">{{ key }} is owed {{ value }}</li>
+                <li class="list-group-item list-group-item-success">{{ key }} is owed {{ value | stringformat:"+.2f"|slice:"1:"  }}</li>
             {% elif value == 0 %}
                 <li class="list-group-item list-group-item-info">{{ key }} owes nothing!</li>
             {% else %}

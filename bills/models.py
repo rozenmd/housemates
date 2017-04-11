@@ -11,7 +11,7 @@ from group.models import Group, GroupMember
 class Bill(TimeStamped):
     who_paid = models.ForeignKey(GroupMember, related_name='bill_paid')
     description = models.TextField()
-    quantity_paid = models.DecimalField(max_digits=10, decimal_places=2)
+    quantity_paid = models.FloatField()
     group = models.ForeignKey(Group, related_name='bill')
     who_owes = models.ManyToManyField(GroupMember)
 

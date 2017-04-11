@@ -12,4 +12,4 @@ class Payment(TimeStamped):
     from_user = models.ForeignKey(GroupMember, related_name='payment_made')
     to_user = models.ForeignKey(GroupMember, related_name='payment_received')
     group = models.ForeignKey(Group, related_name='payment')
-    quantity_paid = models.DecimalField(max_digits=10, decimal_places=2)
+    quantity_paid = models.FloatField()
