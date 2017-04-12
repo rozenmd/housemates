@@ -9,9 +9,9 @@ server {
 
     include /etc/nginx/snippets/letsencrypt.conf;
 
-    location / {
-        return 301 https://housemates.maxrozen.com$request_uri;
-    }
+    #location / {
+    #    return 301 https://housemates.maxrozen.com$request_uri;
+    #}
 
 }
 
@@ -22,9 +22,9 @@ server {
     keepalive_timeout    15;
     error_log /home/%(user)s/logs/%(proj_name)s_error_nginx.log info;
 
-    ssl_certificate /etc/letsencrypt/live/housemates.maxrozen.com/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/housemates.maxrozen.com/privkey.pem;
-    ssl_trusted_certificate /etc/letsencrypt/live/housemates.maxrozen.com/fullchain.pem;
+    ssl_certificate /etc/letsencrypt/live/billdivider.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/billdivider.com/privkey.pem;
+    ssl_trusted_certificate /etc/letsencrypt/live/billdivider.com/fullchain.pem;
     include /etc/nginx/snippets/ssl.conf;
 
 
