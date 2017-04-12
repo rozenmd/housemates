@@ -1,4 +1,4 @@
-# Housemates - a household management system
+# BillDivider - a cash management system
 
 One Paragraph of project description goes here
 
