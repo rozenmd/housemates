@@ -46,15 +46,14 @@ class Invitation(TimeStamped):
     group = models.ForeignKey(Group, null=True, blank=True, on_delete=models.CASCADE)
     objects = InvitationManager()
 
-    @classmethod
-    def create(cls, email, group=None, inviter=None):
-        key = get_random_string(64).lower()
-        instance = cls._default_manager.create(
-            email=email,
-            key=key,
-            inviter=inviter,
-            group=group)
-        return instance
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            # This code only happens if the objects is
+            # not in the database yet. Otherwise it would
+            # have pk
+            self.key = get_random_string(64).lower()
+
+        super(Invitation, self).save(*args, **kwargs)
 
     def key_expired(self):
         expiration_date = (

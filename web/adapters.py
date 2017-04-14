@@ -112,7 +112,7 @@ class BaseInvitationsAdapter(object):
 def get_invitations_adapter():
     # Compatibility with legacy allauth only version.
     LEGACY_ALLAUTH = hasattr(settings, 'ACCOUNT_ADAPTER') and \
-        settings.ACCOUNT_ADAPTER == 'invitations.models.InvitationsAdapter'
+        settings.ACCOUNT_ADAPTER == 'web.models.InvitationsAdapter'
     if LEGACY_ALLAUTH:
         # defer to allauth
         print("FAIL")
