@@ -12,7 +12,7 @@
 <div class="text-center">
 <h2>Welcome to BillDivider!</h2>
 <p>
-    This system is designed to make managing a group simpler.
+    BillDivider makes splitting bills in your group simpler.
 </p>
 
 {% if request.user.is_authenticated %}
@@ -23,7 +23,10 @@
     </p>
 {% else %}
     <p>
-        Click <a href="/group/">here</a> to start a group!
+        You're already in a group!<br/>
+        Click on <a href="/bills/">Bills</a> to start adding bills, or
+        <a href="/dashboard/">Dashboard</a> to track who owes whom in your group.<br/><br/>
+        Click <a href="/invitations/send-invite/">here</a> to invite your friends!
     </p>
 {% endif %}
 {% else %}
