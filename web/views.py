@@ -94,6 +94,18 @@ line_chart = TemplateView.as_view(template_name='line_chart.html')
 line_chart_json = LineChartJSONView.as_view()
 
 
+def homepage_view(request, template_name='index.html'):
+    if request.user.is_authenticated:
+        invitations = Invitation.objects.filter(email=request.user.email)
+        if len(invitations) > 0:
+            for invite in invitations:
+                if not GroupMember.objects.filter(group=invite.group.id, member=request.user.id):
+                    GroupMember(group=invite.group, member=request.user).save()
+                    messages.add_message(request, messages.INFO, 'You have been added to the group: %s!')%(invite.group.name)
+
+    return render(request, template_name)
+
+
 def send_invite(request, template_name='invitations/forms/_invite.html'):
     groups = Group.objects.filter(group_member__member=request.user)
     form = InviteForm(request.POST or None)
@@ -243,7 +255,6 @@ class AcceptInvite(SingleObjectMixin, View):
 def accept_invitation(invitation, request, signal_sender):
     invitation.accepted = True
     invitation.save()
-    GroupMember(group=invitation.group.id, member=request.user.id).save()
     invite_accepted.send(sender=signal_sender, email=invitation.email)
 
     get_invitations_adapter().add_message(
