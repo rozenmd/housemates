@@ -22,7 +22,7 @@ from .exceptions import AlreadyInvited, AlreadyAccepted, UserRegisteredEmail
 from .app_settings import app_settings
 from .adapters import get_invitations_adapter
 from .signals import invite_accepted
-from mezzanine.accounts.urls import SIGNUP_URL
+from mezzanine.accounts.urls import SIGNUP_URL, LOGIN_URL
 
 
 
@@ -193,7 +193,7 @@ class AcceptInvite(SingleObjectMixin, View):
                 self.request,
                 messages.ERROR,
                 'invitations/messages/invite_invalid.txt')
-            return redirect(app_settings.LOGIN_REDIRECT)
+            return redirect(LOGIN_URL)
 
         # The invitation was previously accepted, redirect to the login
         # view.
@@ -204,7 +204,7 @@ class AcceptInvite(SingleObjectMixin, View):
                 'invitations/messages/invite_already_accepted.txt',
                 {'email': invitation.email})
             # Redirect to login since there's hopefully an account already.
-            return redirect(app_settings.LOGIN_REDIRECT)
+            return redirect(LOGIN_URL)
 
         # The key was expired.
         if invitation.key_expired():
@@ -255,6 +255,7 @@ def accept_invitation(invitation, request, signal_sender):
 
 def accept_invite_after_signup(sender, request, user, **kwargs):
     invitation = Invitation.objects.filter(email=user.email).first()
+    GroupMember(group=invitation.group.id, member=user.id).save()
     if invitation:
         accept_invitation(invitation=invitation,
                           request=request,

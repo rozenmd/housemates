@@ -1,4 +1,4 @@
 {% load i18n %}
 {% autoescape off %}
-{% blocktrans %}{{inviter}} is inviting you to join {{ site_name }}{% endblocktrans %}
+{% blocktrans %}{{inviter}} has invited you to join {{ site_name }}{% endblocktrans %}
 {% endautoescape %}
