@@ -1,6 +1,9 @@
 {% extends "group/index.html" %}
 {% block main %}
 <h1>Group Members</h1>
+    <ul>
+    <li><a href="/invitations/send-invite/">Invite friends</a></li>
+    </ul>
 <ul>
     {% for member in object_list %}
     {% if member.member.first_name %}

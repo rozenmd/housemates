@@ -35,7 +35,7 @@ urlpatterns += [
     url(r'^payments/', include('payments.urls')),
     url(r'^group/', include('group.urls')),
     url(r'^dashboard/$', web.views.dashboard, name='dashboard'),
-
+    url(r'^invitations/', include('web.urls', namespace='invitations')),
     url(r'^line_chart/json/$', web.views.line_chart_json,
         name='line_chart_json'),
     # url(r'^accounts/', include('registration.backends.simple.urls')),
