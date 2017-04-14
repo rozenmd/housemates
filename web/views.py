@@ -22,7 +22,7 @@ from .exceptions import AlreadyInvited, AlreadyAccepted, UserRegisteredEmail
 from .app_settings import app_settings
 from .adapters import get_invitations_adapter
 from .signals import invite_accepted
-
+from mezzanine.accounts.urls import SIGNUP_URL
 
 
 
@@ -109,7 +109,7 @@ def send_invite(request, template_name='invitations/forms/_invite.html'):
         invite.send_invitation(request)
         messages.add_message(request, messages.INFO, '%s has been invited' % email)
 
-        return redirect('group_manage_members')
+        return redirect('group_manage_members', group.id)
     data = {'form': form}
     return render(request, template_name, data)
 
@@ -165,7 +165,8 @@ class AcceptInvite(SingleObjectMixin, View):
     form_class = InviteForm
 
     def get_signup_redirect(self):
-        return app_settings.SIGNUP_REDIRECT
+        return SIGNUP_URL
+        #app_settings.SIGNUP_REDIRECT
 
     def get(self, *args, **kwargs):
         if app_settings.CONFIRM_INVITE_ON_GET:
