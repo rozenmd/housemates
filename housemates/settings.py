@@ -259,7 +259,7 @@ INSTALLED_APPS = (
 )
 
 EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"  # or sendgrid.EmailBackend, or...
-DEFAULT_FROM_EMAIL = "noreply@housemates.maxrozen.com"  # if you don't already have this in settings
+DEFAULT_FROM_EMAIL = "noreply@mail.billdivider.com"  # if you don't already have this in settings
 
 ACCOUNTS_NO_USERNAME = True
 # List of middleware classes to use. Order is important; in the request phase,
