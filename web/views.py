@@ -101,7 +101,7 @@ def homepage_view(request, template_name='index.html'):
             for invite in invitations:
                 if not GroupMember.objects.filter(group=invite.group.id, member=request.user.id):
                     GroupMember(group=invite.group, member=request.user).save()
-                    messages.add_message(request, messages.INFO, 'You have been added to the group: %s!')%(invite.group.name)
+                    messages.add_message(request, messages.INFO, 'You have been added to the group: '+invite.group+'!')
 
     return render(request, template_name)
 
