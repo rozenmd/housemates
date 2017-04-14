@@ -243,7 +243,7 @@ class AcceptInvite(SingleObjectMixin, View):
 def accept_invitation(invitation, request, signal_sender):
     invitation.accepted = True
     invitation.save()
-
+    GroupMember(group=invitation.group.id, member=request.user.id).save()
     invite_accepted.send(sender=signal_sender, email=invitation.email)
 
     get_invitations_adapter().add_message(
@@ -255,7 +255,6 @@ def accept_invitation(invitation, request, signal_sender):
 
 def accept_invite_after_signup(sender, request, user, **kwargs):
     invitation = Invitation.objects.filter(email=user.email).first()
-    GroupMember(group=invitation.group.id, member=user.id).save()
     if invitation:
         accept_invitation(invitation=invitation,
                           request=request,

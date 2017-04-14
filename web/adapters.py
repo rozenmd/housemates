@@ -12,7 +12,7 @@ except ImportError:
 
 from .app_settings import app_settings
 from .utils import import_attribute
-
+from .signals import user_signed_up
 
 # Code credits here to django-allauth
 class BaseInvitationsAdapter(object):
@@ -107,6 +107,9 @@ class BaseInvitationsAdapter(object):
                                          extra_tags=extra_tags)
             except TemplateDoesNotExist:
                 pass
+
+    def get_user_signed_up_signal(self):
+        return user_signed_up
 
 
 def get_invitations_adapter():

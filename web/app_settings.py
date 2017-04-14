@@ -28,7 +28,7 @@ class AppSettings(object):
     @property
     def ACCEPT_INVITE_AFTER_SIGNUP(self):
         """ Accept the invitation after the user finished signup. """
-        return self._setting('ACCEPT_INVITE_AFTER_SIGNUP', False)
+        return self._setting('ACCEPT_INVITE_AFTER_SIGNUP', True)
 
     @property
     def GONE_ON_ACCEPT_ERROR(self):
