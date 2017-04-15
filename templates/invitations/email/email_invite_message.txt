@@ -6,6 +6,8 @@ Hi there!
 
 Your friend {{inviter}} has invited you ({{ email }}) to join {{ site_name }}
 
+To join the same group as your friend, make sure you use this email ({{email}}) or ask your friend to reinvite your preferred email address.
+
 If you'd like to join, please click here: {{ invite_url }}
 
 {% endblocktrans %}
