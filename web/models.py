@@ -27,7 +27,7 @@ from group.models import Group
 
 class MyProfile(TimeStamped):
     user = models.OneToOneField("auth.User")
-    current_group = models.IntegerField(null=True)
+    current_group = models.ForeignKey(Group, null=True)
     # name = models.CharField(max_length=255)
 
 

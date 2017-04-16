@@ -17,7 +17,9 @@
 <form method="post"{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
     <fieldset>
     <legend>{{ title }}</legend>
+        <p>(Email is case sensitive)</p>
     {% fields_for form %}
+
     <div class="form-actions">
         {% block account_form_actions %}
         <input class="btn btn-primary btn-lg pull-right" type="submit" value="{{ title }}">

@@ -30,12 +30,12 @@
             <a href="{% url "set_current_group" group.id %}">Set Current</a>
                 {% for house in request.user.group.all %}
             {% if house.group.id == group.id %}
-            |     <a href="{% url "group_read" group.id %}">View</a>
+            |     <a href="{% url "group_read" group.id %}">Members List</a>
             {% endif %}
         {% endfor %}
 
-            | <a href="{% url "group_edit" group.id %}">Edit</a>
-            | <a href="{% url "group_delete" group.id %}">Delete</a>
+            | <a href="{% url "group_edit" group.id %}">Edit Group</a>
+            | <a href="{% url "group_delete" group.id %}">Delete Group</a>
             </td>
         </tr>
                 {% endfor %}

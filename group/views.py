@@ -10,9 +10,10 @@ from web.models import MyProfile
 
 def group_list(request, template_name='group/group_list.html'):
     groups = Group.objects.filter(group_member__member=request.user)
+    #Because user might note have a profile
     profile = MyProfile.objects.filter(user=request.user)
-    if len(profile) > 0:
-        current_group = get_object_or_404(Group, pk=profile.first().current_group)
+    if len(profile) > 0 and profile.first().current_group:
+        current_group = get_object_or_404(Group, pk=profile.first().current_group.id)
     else:
         current_group = ''
     data = {'object_list': groups, 'current_group': current_group}
@@ -70,7 +71,7 @@ def group_update(request, pk, template_name='group/group_form.html'):
     return render(request, template_name, {'form': form})
 
 
-@staff_member_required
+
 def group_delete(request, pk, template_name='group/group_confirm_delete.html'):
     group = get_object_or_404(Group, pk=pk)
     if request.method == 'POST':
@@ -79,11 +80,12 @@ def group_delete(request, pk, template_name='group/group_confirm_delete.html'):
     return render(request, template_name, {'object': group})
 
 
-@staff_member_required
 def group_member_delete(request, pk, id, template_name='group/group_member_confirm_delete.html'):
     group = get_object_or_404(Group, pk=pk)
     member = get_object_or_404(GroupMember, pk=id)
     if request.method == 'POST':
+        member.member.myprofile.current_group = None
+        member.member.myprofile.save()
         member.delete()
         return redirect('group_manage_members', group.id)
     return render(request, template_name, {'object': member})
@@ -102,11 +104,13 @@ def group_manage_members(request, pk, template_name='group/group_member_list.htm
     else:
         return redirect('group_list')
 
+
 def set_current_group(request, pk):
     profile = MyProfile.objects.filter(user=request.user)
-    if len(profile) > 0:
+    group = Group.objects.filter(id=pk)
+    if len(profile) > 0 and len(group) > 0:
         profile = MyProfile.objects.get(user=request.user)
-        profile.current_group = pk
+        profile.current_group = group.first()
         profile.save()
     else:
         MyProfile(user=request.user, current_group=pk).save()
