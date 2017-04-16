@@ -29,9 +29,9 @@ server {
 
 
     # Deny illegal Host headers
-    if ($host !~* ^(%(domains_regex)s)$) {
-        return 444;
-    }
+    #if ($host !~* ^(%(domains_regex)s)$) {
+    #    return 444;
+    #}
 
     location / {
         proxy_redirect      off;
