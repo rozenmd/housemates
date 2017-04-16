@@ -17,7 +17,7 @@ from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
 from braces.views import LoginRequiredMixin
 from .forms import InviteForm, CleanEmailMixin
-from .models import Invitation
+from .models import Invitation, Email
 from .exceptions import AlreadyInvited, AlreadyAccepted, UserRegisteredEmail
 from .app_settings import app_settings
 from .adapters import get_invitations_adapter
@@ -85,7 +85,8 @@ def on_incoming_message(request):
         body_plain = request.POST.get('body-plain', '')
         body_without_quotes = request.POST.get('stripped-text', '')
         # note: other MIME headers are also posted here...
-
+        Email(sender=sender, recipient=recipient, subject=subject,
+              body_plain=body_plain, body_without_quotes=body_without_quotes).save()
         # attachments:
         # for key in request.FILES:
         #     file = request.FILES[key]

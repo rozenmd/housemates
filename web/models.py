@@ -36,7 +36,7 @@ class Email(TimeStamped):
     recipient = models.CharField(max_length=255)
     subject = models.CharField(max_length=255)
     body_plain = models.TextField()
-    body_without_quoutes = models.TextField()
+    body_without_quotes = models.TextField()
 
 @python_2_unicode_compatible
 class Invitation(TimeStamped):
