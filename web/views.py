@@ -29,7 +29,7 @@ from mezzanine.accounts.urls import SIGNUP_URL, LOGIN_URL
 def dashboard(request, template_name='web/dashboard.html'):
     profile = MyProfile.objects.filter(user=request.user)
     if len(profile) > 0:
-        current_group = get_object_or_404(Group, pk=profile.first().current_group)
+        current_group = get_object_or_404(Group, pk=profile.first().current_group.id)
     else:
         current_group = ''
     data = {'current_group': current_group}
