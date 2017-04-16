@@ -76,7 +76,7 @@ def dashboard(request, template_name='web/dashboard.html'):
     return render(request, template_name, data)
 
 
-def on_incoming_message(request):
+def on_incoming_message(request, key=None):
     if request.method == 'POST':
         sender = request.POST.get('sender')
         recipient = request.POST.get('recipient')
