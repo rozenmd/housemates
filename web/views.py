@@ -75,7 +75,8 @@ def dashboard(request, template_name='web/dashboard.html'):
 
     return render(request, template_name, data)
 
-
+from django.views.decorators.csrf import csrf_exempt
+@csrf_exempt
 def on_incoming_message(request, key=None):
     if request.method == 'POST':
         sender = request.POST.get('sender')
