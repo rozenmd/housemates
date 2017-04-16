@@ -11,7 +11,7 @@ from web.models import MyProfile
 def payments_list(request, template_name='payments/payments_list.html'):
     groups = Group.objects.filter(group_member__member=request.user)
     profile = MyProfile.objects.filter(user=request.user)
-    if len(profile) > 0:
+    if len(profile) > 0 and profile.first().current_group:
         current_group = get_object_or_404(Group, pk=profile.first().current_group.id)
     else:
         current_group = ''
