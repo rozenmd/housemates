@@ -39,8 +39,8 @@ def payments_list(request, template_name='payments/payments_list.html'):
 def payments_create(request, template_name='payments/payments_form.html'):
     groups = Group.objects.filter(group_member__member=request.user)
     profile = MyProfile.objects.filter(user=request.user)
-    if len(profile) > 0:
-        current_group = get_object_or_404(Group, pk=profile.first().current_group)
+    if len(profile) > 0 and profile.first().current_group:
+        current_group = get_object_or_404(Group, pk=profile.first().current_group.id)
     else:
         current_group = ''
     data = {'current_group': current_group}
@@ -71,10 +71,11 @@ def payments_read(request, pk, template_name='payments/payments_view.html'):
 def payments_update(request, pk, template_name='payments/payments_form.html'):
     payments = get_object_or_404(Payment, pk=pk)
     profile = MyProfile.objects.filter(user=request.user)
-    if len(profile) > 0:
-        current_group = get_object_or_404(Group, pk=profile.first().current_group)
+    if len(profile) > 0 and profile.first().current_group:
+        current_group = get_object_or_404(Group, pk=profile.first().current_group.id)
     else:
         current_group = ''
+
     form = PaymentForm(request.POST or None, instance=payments)
     form.fields['from_user'].queryset = GroupMember.objects.filter(group=current_group)
     form.fields['to_user'].queryset = GroupMember.objects.filter(group=current_group)

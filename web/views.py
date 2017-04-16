@@ -41,7 +41,6 @@ def dashboard(request, template_name='web/dashboard.html'):
         # Calculate the total owed per bill first:
         bill_dict = {}
 
-
         for member in members:
             bill_dict[str(member)] = 0.0
         for bill in bills:
@@ -57,22 +56,22 @@ def dashboard(request, template_name='web/dashboard.html'):
         for payment in payments:
             bill_dict[str(payment.from_user)] -= payment.quantity_paid
             bill_dict[str(payment.to_user)] += payment.quantity_paid
+
         for key, value in bill_dict.items():
             bill_dict[key] = Decimal(Decimal(value).quantize(Decimal('.01'), rounding=ROUND_UP))
-
         # bill_dict = simplejson.dumps(bill_dict)
-        qs = bills
-        cols = ['id', 'created', 'who_paid', 'quantity_paid', 'who_owes__member']
-        df = read_frame(qs, cols, verbose=True)
-        bills = df.to_json(orient='records')
-        data['bills'] = bills
+        # qs = bills
+        # cols = ['id', 'created', 'who_paid', 'quantity_paid', 'who_owes__member']
+        # df = read_frame(qs, cols, verbose=True)
+        # bills = df.to_json(orient='records')
+        # data['bills'] = bills
         data['lah'] = bill_dict
 
 
-        qs = payments
-        df = read_frame(qs)
-        payments = df.to_json(orient='records')
-        data['payments'] = payments
+        # qs = payments
+        # df = read_frame(qs)
+        # payments = df.to_json(orient='records')
+        # data['payments'] = payments
 
     return render(request, template_name, data)
 

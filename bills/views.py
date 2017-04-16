@@ -40,8 +40,8 @@ def bills_list(request, template_name='bills/bills_list.html'):
 def bills_create(request, template_name='bills/bills_form.html'):
     groups = Group.objects.filter(group_member__member=request.user)
     profile = MyProfile.objects.filter(user=request.user)
-    if len(profile) > 0:
-        current_group = get_object_or_404(Group, pk=profile.first().current_group)
+    if len(profile) > 0 and profile.first().current_group:
+        current_group = get_object_or_404(Group, pk=profile.first().current_group.id)
     else:
         current_group = ''
     data = {'current_group': current_group}
