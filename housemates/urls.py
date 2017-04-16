@@ -49,7 +49,7 @@ urlpatterns += [
     # one out.
 
     # url("^$", direct_to_template, {"template": "index.html"}, name="home"),
-    url("^$", web.views.homepage_view, name="home"),
+    url("^$", homepage_view, name="home"),
 
     # HOMEPAGE AS AN EDITABLE PAGE IN THE PAGE TREE
     # ---------------------------------------------
