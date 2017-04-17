@@ -9,9 +9,9 @@ server {
 
     include /etc/nginx/snippets/letsencrypt.conf;
 
-    #location / {
-    #    return 301 https://billdivider.com$request_uri;
-    #}
+    location / {
+        return 301 https://billdivider.com$request_uri;
+    }
 
 }
 
