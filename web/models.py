@@ -31,13 +31,6 @@ class MyProfile(TimeStamped):
     # name = models.CharField(max_length=255)
 
 
-class Email(TimeStamped):
-    sender = models.CharField(max_length=255)
-    recipient = models.CharField(max_length=255)
-    subject = models.CharField(max_length=255)
-    body_plain = models.TextField()
-    body_without_quotes = models.TextField()
-
 @python_2_unicode_compatible
 class Invitation(TimeStamped):
 

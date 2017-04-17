@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Invitation, Email
+from .models import Invitation
 from .forms import InvitationAdminAddForm, InvitationAdminChangeForm
 
 
@@ -19,5 +19,4 @@ class InvitationAdmin(admin.ModelAdmin):
 
 admin.site.register(Invitation, InvitationAdmin)
 
-admin.site.register(Email)
 # Register your models here.

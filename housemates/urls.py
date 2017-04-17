@@ -39,7 +39,6 @@ urlpatterns += [
     url(r'^line_chart/json/$', line_chart_json,
         name='line_chart_json'),
     # url(r'^accounts/', include('registration.backends.simple.urls')),
-    url(r'^messages/ (?P<key>\w+)/?', on_incoming_message, name="on_incoming_message"),
 
     # HOMEPAGE AS STATIC TEMPLATE
     # ---------------------------
