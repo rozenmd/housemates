@@ -9,42 +9,42 @@
     <p>Set a current group!</p>
 {% endif %}
 {#'who_paid', 'description', 'quantity_paid', 'group'#}
-<table class="table table-striped table-hover table-responsive">
-<thead>
-<tr>
-    <td>
+
+
+<div class="row">
+    <div class="col-sm-3">
         Who Paid
-    </td>
-    <td>
+    </div>
+    <div class="col-sm-2">
         Description
-    </td>
-    <td>
+    </div>
+    <div class="col-sm-2">
         Quantity paid
-    </td>
-    <td>
+    </div>
+    <div class="col-sm-3">
         Who Incurred
-    </td>
-    <td></td>
-</tr>
-</thead>
-<tbody>
+    </div>
+    <div class="col-sm-2"></div>
+</div>
+
+
 {% for bill in object_list %}
-<tr>
-    <td>
+<div class="row">
+    <div class="col-sm-3">
         {% if bill.who_paid.member.first_name %}
             {{ bill.who_paid.member.first_name }} {{ bill.who_paid.member.last_name }}
         {% else %}
         {{  bill.who_paid.member.email }}
         {% endif %}
 
-    </td>
-    <td>
+    </div>
+    <div class="col-sm-2">
         {{ bill.description }}
-    </td>
-    <td>
+    </div>
+    <div class="col-sm-2">
         ${{ bill.quantity_paid | intcomma}}
-    </td>
-    <td>
+    </div>
+    <div class="col-sm-3">
         {% for person in bill.who_owes.all %}
 
             {% if person.member.first_name %}{{ person.member.first_name }} {{ person.member.last_name }}
@@ -53,16 +53,15 @@
             {% endif %}
             <br/>
         {% endfor %}
-    </td>
-    <td>
+    </div>
+    <div class="col-sm-2">
         <a href="{% url "bills_edit" bill.id %}">edit</a> | <a href="{% url "bills_delete" bill.id %}">delete</a>
-    </td>
-</tr>
+    </div>
+</div>
 
 
 {% endfor %}
-</tbody>
-</table>
+
 
 
 
