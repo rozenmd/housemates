@@ -1,73 +1,42 @@
 {% extends "bills/index.html" %}
 {% load humanize %}
 {% block main %}
-<h1>Bills</h1>
-{% if current_group %}
-    <p>Current group: <b>{{ current_group }}</b></p>
-{% else %}
-    <p>Set a current group!</p>
-{% endif %}
-{#'who_paid', 'description', 'quantity_paid', 'group'#}
-<table class="table table-striped table-hover table-responsive">
-<thead>
-<tr>
-    <td>
-        Who Paid
-    </td>
-    <td>
-        Description
-    </td>
-    <td>
-        Quantity paid
-    </td>
-    <td>
-        Who Incurred
-    </td>
-<td></td>
-</tr>
-</thead>
-<tbody>
-{% for bill in object_list %}
-<tr>
-    <td>
-          {% if bill.who_paid.member.first_name %}
-            {{ bill.who_paid.member.first_name }} {{ bill.who_paid.member.last_name }}
-        {% else %}
-        {{  bill.who_paid.member.email }}
-        {% endif %}
-    </td>
-    <td>
-        {{ bill.description }}
-    </td>
-    <td>
-        ${{ bill.quantity_paid | intcomma}}
-    </td>
-    <td>
-         {% for person in bill.who_owes.all %}
+    <h1>Bills</h1>
+    {% if current_group %}
+        <p>Current group: <b>{{ current_group }}</b></p>
+    {% else %}
+        <p>Set a current group!</p>
+    {% endif %}
 
-            {% if person.member.first_name %}{{ person.member.first_name }} {{ person.member.last_name }}
-            {% else %}
-                {{ person.member.email }}
-            {% endif %}
-            <br/>
-        {% endfor %}
-    </td>
-<td></td>
+    <div class="row">
+        <div class="col-sm-2 col-xs-2">
+            Who Paid
+        </div>
+        <div class="col-sm-3 col-xs-3">
+            Description
+        </div>
+        <div class="col-sm-2 col-xs-2">
+            Quantity paid
+        </div>
+        <div class="col-sm-3 col-xs-3">
+            Who Incurred
+        </div>
+        <div class="col-sm-2 col-xs-1"></div>
+    </div>
+    <hr>
+    <tbody>
 
-</tr>
-{% endfor %}
-<tr>
-    <form method="post">{% csrf_token %}
-        <td>{{ form.who_paid }}{{ form.who_paid.errors }}</td>
-        <td>{{ form.description }}{{ form.description.errors }}</td>
-        <td>{{ form.quantity_paid }}{{ form.quantity_paid.errors }}</td>
-        <td>{{ form.who_owes }}{{ form.who_owes.errors }}</td>
-        {{ form.group.as_hidden }}
-        <td><input type="submit" value="Submit" /></td>
+    <div class="row">
+        <form method="post">{% csrf_token %}
+            <div class="col-sm-2 col-xs-2">{{ form.who_paid }}{{ form.who_paid.errors }}</div>
+            <div class="col-sm-3 col-xs-3">{{ form.description }}{{ form.description.errors }}</div>
+            <div class="col-sm-2 col-xs-2">{{ form.quantity_paid }}{{ form.quantity_paid.errors }}</div>
+            <div class="col-sm-3 col-xs-3">{{ form.who_owes }}{{ form.who_owes.errors }}</div>
+            {{ form.group.as_hidden }}
+            <div class="col-sm-2 col-xs-1"><input class="btn-primary btn" type="submit" value="Submit"/></div>
 
-    </form>
-</tr>
-</tbody>
-</table>
+        </form>
+    </div>
+
 
 {% endblock %}

@@ -2,54 +2,56 @@
 {% load humanize %}
 
 {% block main %}
-<h1>Payments</h1>
-{% if current_group %}
-    <p>Current group: <b>{{ current_group }}</b></p>
-{% else %}
-    <p>Set a current group!</p>
-{% endif %}
-<a class="btn btn-primary" href="{% url "payments_new" %}">Create payment</a>
-<div class="row">
+    <h1>Payments</h1>
+    {% if current_group %}
+        <p>Current group: <b>{{ current_group }}</b></p>
+    {% else %}
+        <p>Set a current group!</p>
+    {% endif %}
+    <a class="btn btn-primary" href="{% url "payments_new" %}">Create payment</a>
+    <hr>
+    <div class="row">
 
-    <div class="col-sm-4 col-xs-4">
-        From
-    </div>
-    <div class="col-sm-4 col-xs-4">
-        To
-    </div>
-    <div class="col-sm-2 col-xs-2">
-        Quantity paid
-    </div>
+        <div class="col-sm-4 col-xs-4">
+            From
+        </div>
+        <div class="col-sm-4 col-xs-4">
+            To
+        </div>
+        <div class="col-sm-2 col-xs-2">
+            Quantity paid
+        </div>
 
-    <div class="col-sm-2 col-xs-2"></div>
-</div>
-<hr>
-{% for payment in object_list %}
-<div class="row">
+        <div class="col-sm-2 col-xs-2"></div>
+    </div>
+    <hr>
+    {% for payment in object_list %}
+        <div class="row">
 
-    <div class="col-sm-4 col-xs-4">
-        {% if payment.from_user.member.first_name %}
-            {{ payment.from_user.member.first_name }} {{ payment.from_user.member.last_name }}
-        {% else %}
-        {{  payment.from_user.member.email }}
-        {% endif %}
+            <div class="col-sm-4 col-xs-4">
+                {% if payment.from_user.member.first_name %}
+                    {{ payment.from_user.member.first_name }} {{ payment.from_user.member.last_name }}
+                {% else %}
+                    {{ payment.from_user.member.email }}
+                {% endif %}
 
-    </div>
-    <div class="col-sm-4 col-xs-4">
-        {% if payment.to_user.member.first_name %}
-            {{ payment.to_user.member.first_name }} {{ payment.to_user.member.last_name }}
-        {% else %}
-        {{  payment.to_user.member.email }}
-        {% endif %}
-    </div>
-    <div class="col-sm-2 col-xs-2">
-        ${{ payment.quantity_paid | intcomma}}
-    </div>
+            </div>
+            <div class="col-sm-4 col-xs-4">
+                {% if payment.to_user.member.first_name %}
+                    {{ payment.to_user.member.first_name }} {{ payment.to_user.member.last_name }}
+                {% else %}
+                    {{ payment.to_user.member.email }}
+                {% endif %}
+            </div>
+            <div class="col-sm-2 col-xs-2">
+                ${{ payment.quantity_paid | intcomma }}
+            </div>
 
-    <div class="col-sm-2 col-xs-2">
-        <a class="btn btn-primary" href="{% url "payments_edit" payment.id %}">edit</a> <br/><br/> <a class="btn btn-danger" href="{% url "payments_delete" payment.id %}">delete</a>
-    </div>
-</div>
-<hr>
-{% endfor %}
+            <div class="col-sm-2 col-xs-2">
+                <a class="btn btn-primary" href="{% url "payments_edit" payment.id %}">edit</a> <br/><br/> <a
+                    class="btn btn-danger" href="{% url "payments_delete" payment.id %}">delete</a>
+            </div>
+        </div>
+        <hr>
+    {% endfor %}
 {% endblock %}

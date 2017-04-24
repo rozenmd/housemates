@@ -2,66 +2,68 @@
 {% load humanize %}
 
 {% block main %}
-<h1>Bills</h1>
-{% if current_group %}
-    <p>Current group: <b>{{ current_group }}</b></p>
-{% else %}
-    <p>Set a current group!</p>
-{% endif %}
-{#'who_paid', 'description', 'quantity_paid', 'group'#}
+    <h1>Bills</h1>
+    {% if current_group %}
+        <p>Current group: <b>{{ current_group }}</b></p>
+    {% else %}
+        <p>Set a current group!</p>
+    {% endif %}
+    {#'who_paid', 'description', 'quantity_paid', 'group'#}
 
-<a class="btn btn-primary" href="{% url "bills_new" %}">Create bill</a>
-<div class="row">
-    <div class="col-sm-3 col-xs-3">
-        Who Paid
+    <a class="btn btn-primary" href="{% url "bills_new" %}">Create bill</a>
+    <hr>
+    <div class="row">
+        <div class="col-sm-3 col-xs-3">
+            Who Paid
+        </div>
+        <div class="col-sm-2 col-xs-3">
+            Description
+        </div>
+        <div class="col-sm-2 col-xs-2">
+            Quantity paid
+        </div>
+        <div class="col-sm-3 col-xs-3">
+            Who Incurred
+        </div>
+        <div class="col-sm-2 col-xs-1"></div>
     </div>
-    <div class="col-sm-2 col-xs-3">
-        Description
-    </div>
-    <div class="col-sm-2 col-xs-2">
-        Quantity paid
-    </div>
-    <div class="col-sm-3 col-xs-3">
-        Who Incurred
-    </div>
-    <div class="col-sm-2 col-xs-1"></div>
-</div>
-<hr>
+    <hr>
 
-{% for bill in object_list %}
-<div class="row">
-    <div class="col-sm-3 col-xs-3">
-        {% if bill.who_paid.member.first_name %}
-            {{ bill.who_paid.member.first_name }} {{ bill.who_paid.member.last_name }}
-        {% else %}
-        {{  bill.who_paid.member.email }}
-        {% endif %}
+    {% for bill in object_list %}
+        <div class="row">
+            <div class="col-sm-3 col-xs-3">
+                {% if bill.who_paid.member.first_name %}
+                    {{ bill.who_paid.member.first_name }} {{ bill.who_paid.member.last_name }}
+                {% else %}
+                    {{ bill.who_paid.member.email }}
+                {% endif %}
 
-    </div>
+            </div>
 
-    <div class="col-sm-2 col-xs-3">
-        {{ bill.description }}
-    </div>
-    <div class="col-sm-2 col-xs-2">
-        ${{ bill.quantity_paid | intcomma}}
-    </div>
-    <div class="col-sm-3 col-xs-3">
-        {% for person in bill.who_owes.all %}
+            <div class="col-sm-2 col-xs-3">
+                {{ bill.description }}
+            </div>
+            <div class="col-sm-2 col-xs-2">
+                ${{ bill.quantity_paid | intcomma }}
+            </div>
+            <div class="col-sm-3 col-xs-3">
+                {% for person in bill.who_owes.all %}
 
-            {% if person.member.first_name %}{{ person.member.first_name }} {{ person.member.last_name }}
-            {% else %}
-                {{ person.member.email }}
-            {% endif %}
-            <br/>
-        {% endfor %}
-    </div>
-    <div class="col-sm-2 col-xs-1">
-        <a class="btn btn-primary" href="{% url "bills_edit" bill.id %}">edit</a> <br/><br/> <a class="btn btn-danger" href="{% url "bills_delete" bill.id %}">delete</a>
-    </div>
-</div>
-<hr>
+                    {% if person.member.first_name %}{{ person.member.first_name }} {{ person.member.last_name }}
+                    {% else %}
+                        {{ person.member.email }}
+                    {% endif %}
+                    <br/>
+                {% endfor %}
+            </div>
+            <div class="col-sm-2 col-xs-1">
+                <a class="btn btn-primary" href="{% url "bills_edit" bill.id %}">edit</a> <br/><br/> <a
+                    class="btn btn-danger" href="{% url "bills_delete" bill.id %}">delete</a>
+            </div>
+        </div>
+        <hr>
 
-{% endfor %}
+    {% endfor %}
 
 
 
