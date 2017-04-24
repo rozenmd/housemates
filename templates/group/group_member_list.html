@@ -1,21 +1,33 @@
 {% extends "group/index.html" %}
 {% block main %}
-<h1>Group Members</h1>
-    <ul>
-    <li><a href="/invitations/send-invite/">Invite friends</a></li>
-    </ul>
-<ul>
+    <h1>Group Members</h1>
+
+    <a class="btn btn-primary" href="/invitations/send-invite/">Invite friends</a>
+    <hr>
+
+
     {% for member in object_list %}
-    {% if member.member.first_name %}
-        <li>{{ member.member.first_name }} {{ member.member.last_name }}:
-            <a href="{% url "group_member_delete" member.group.id member.id %}">delete</a>
-        </li>
-    {% else %}
-        <li>{{ member.member.email }}:
-            <a href="{% url "group_member_delete" member.group.id member.id %}">delete</a>
-        </li>
-    {% endif %}
+        <div class="row">
+            {% if member.member.first_name %}
+                <div class="col-sm-6 col-xs-6">
+                    {{ member.member.first_name }} {{ member.member.last_name }}
+                </div>
+                <div class="col-sm-6 col-xs-6">
+                    <a class="btn btn-danger"
+                       href="{% url "group_member_delete" member.group.id member.id %}">delete</a>
+                </div>
+            {% else %}
+                <div class="col-sm-6 col-xs-6">
+                    {{ member.member.email }}
+                </div>
+                <div class="col-sm-6 col-xs-6">
+                    <a class="btn btn-danger"
+                       href="{% url "group_member_delete" member.group.id member.id %}">delete</a>
+                </div>
+            {% endif %}
+        </div>
+        <hr>
     {% endfor %}
-</ul>
+
 
 {% endblock %}

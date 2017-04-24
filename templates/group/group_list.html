@@ -20,17 +20,20 @@
                 </div>
                 <div class="col-xs-5 col-sm-7 ">
                     <a class="btn btn-primary" href="{% url "set_current_group" group.id %}">Set Current</a>
+                <hr>
                     {% for house in request.user.group.all %}
                         {% if house.group.id == group.id %}
                                  <a class="btn btn-info" href="{% url "group_read" group.id %}">Members List</a>
+                            <hr>
                         {% endif %}
                     {% endfor %}
 
                      <a class="btn btn-primary" href="{% url "group_edit" group.id %}">Edit Group</a>
+                <hr>
                      <a class="btn btn-danger" href="{% url "group_delete" group.id %}">Delete Group</a>
                 </div>
             </div>
-
+            <hr>
         {% endfor %}
 
 
