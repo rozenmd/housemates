@@ -1,37 +1,37 @@
 {% extends "group/index.html" %}
 {% block main %}
-<h1 class="text-center">My Groups</h1>
-{% if current_group %}
-    <p>Current group: <b>{{ current_group }}</b></p>
-{% else %}
-    <p>Set a current group!</p>
-{% endif %}
+    <h1 class="text-center">My Groups</h1>
+    {% if current_group %}
+        <p>Current group: <b>{{ current_group }}</b></p>
+    {% else %}
+        <p>Set a current group!</p>
+    {% endif %}
     {% if not request.user.group.first.id %}
         <p class="text-center">You'll need to <a href="{% url "group_new" %}">start</a> or
             <a href="{% url "group_find" %}">join</a> a group first!</p>
     {% else %}
-        <a class="btn btn-primary"  href="{% url "group_new" %}">New</a> | <a class="btn btn-info" href="{% url "group_find" %}">Join</a>
-<hr>
-            {% for group in object_list %}
-        <div class="col-xs-12 col-sm-12">
+        <a class="btn btn-primary" href="{% url "group_new" %}">New</a>
+        <a class="btn btn-info" href="{% url "group_find" %}">Join</a>
+        <hr>
+        {% for group in object_list %}
             <div class="row">
-                <div class="col-xs-4 col-sm-4">
-                    <h3 class="text-center">{{ group.name }}</h3>
+                <div class="col-xs-7 col-sm-5">
+                    <h3>{{ group.name }}</h3>
                 </div>
-                <div class="col-xs-8 col-sm-8">
+                <div class="col-xs-5 col-sm-7 ">
                     <a class="btn btn-primary" href="{% url "set_current_group" group.id %}">Set Current</a>
-                        {% for house in request.user.group.all %}
-                            {% if house.group.id == group.id %}
-                            |     <a class="btn btn-info" href="{% url "group_read" group.id %}">Members List</a>
-                            {% endif %}
-                        {% endfor %}
+                    {% for house in request.user.group.all %}
+                        {% if house.group.id == group.id %}
+                                 <a class="btn btn-info" href="{% url "group_read" group.id %}">Members List</a>
+                        {% endif %}
+                    {% endfor %}
 
-                    | <a class="btn btn-primary" href="{% url "group_edit" group.id %}">Edit Group</a>
-                    | <a class="btn btn-danger" href="{% url "group_delete" group.id %}">Delete Group</a>
+                     <a class="btn btn-primary" href="{% url "group_edit" group.id %}">Edit Group</a>
+                     <a class="btn btn-danger" href="{% url "group_delete" group.id %}">Delete Group</a>
                 </div>
             </div>
-        </div>
-                {% endfor %}
+
+        {% endfor %}
 
 
 
