@@ -40,4 +40,7 @@ ANYMAIL = {
     "MAILGUN_API_KEY": "%(mailgun_api_key)s",
     "MAILGUN_SENDER_DOMAIN": "%(mailgun_sender_domain)s",
 }
-
+SOCIAL_AUTH_TWITTER_KEY = "%(twitter_key)s"
+SOCIAL_AUTH_TWITTER_SECRET = "%(twitter_secret)s"
+SOCIAL_AUTH_FACEBOOK_KEY = "%(facebook_key)s"
+SOCIAL_AUTH_FACEBOOK_SECRET = "%(facebook_secret)s"

@@ -5,15 +5,13 @@ from django.conf.urls.i18n import i18n_patterns
 from django.contrib import admin
 from django.views.i18n import set_language
 from web.views import *
-from web.views import line_chart_json
+from web.views import line_chart_json, settings_page
 from mezzanine.core.views import direct_to_template
 from mezzanine.conf import settings
 
 
 admin.autodiscover()
-LOGIN_URL = 'login'
-LOGOUT_URL = 'logout'
-LOGIN_REDIRECT_URL = 'home'
+
 # Add the urlpatterns for any custom Django applications here.
 # You can also change the ``home`` view to add your own functionality
 # to the project's homepage.
@@ -33,6 +31,7 @@ urlpatterns += [
     # We don't want to presume how your homepage works, so here are a
     # few patterns you can use to set it up.
     url(r'^oauth/', include('social_django.urls', namespace='social')),  # <--
+    url(r'^settings/$', settings_page, name='settings'),
 
     url(r'^bills/', include('bills.urls')),
     url(r'^payments/', include('payments.urls')),

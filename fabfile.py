@@ -22,7 +22,6 @@ from fabric.contrib.project import rsync_project
 from fabric.colors import yellow, green, blue, red
 from fabric.decorators import hosts
 
-
 ################
 # Config setup #
 ################
@@ -43,7 +42,6 @@ if sys.argv[0].split(os.sep)[-1] in ("fab", "fab-script.py"):
         print("Aborting, no hosts defined.")
         exit()
 
-
 env.db_pass = conf.get("DB_PASS", None)
 env.admin_pass = conf.get("ADMIN_PASS", None)
 env.user = conf.get("SSH_USER", getuser())
@@ -52,6 +50,10 @@ env.key_filename = conf.get("SSH_KEY_PATH", None)
 env.hosts = conf.get("HOSTS", [""])
 env.mailgun_api_key = conf.get("MAILGUN_API_KEY", None)
 env.mailgun_sender_domain = conf.get("MAILGUN_SENDER_DOMAIN", None)
+env.twitter_key = conf.get("SOCIAL_AUTH_TWITTER_KEY", None)
+env.twitter_secret = conf.get("SOCIAL_AUTH_TWITTER_SECRET", None)
+env.facebook_key = conf.get("SOCIAL_AUTH_FACEBOOK_KEY", None)
+env.facebook_secret = conf.get("SOCIAL_AUTH_FACEBOOK_SECRET", None)
 
 env.proj_name = conf.get("PROJECT_NAME", env.proj_app)
 env.venv_home = conf.get("VIRTUALENV_HOME", "/home/%s/.virtualenvs" % env.user)
@@ -77,13 +79,11 @@ if not env.secret_key:
     print("Aborting, no SECRET_KEY setting defined.")
     exit()
 
-
 # Remote git repos need to be "bare" and reside separated from the project
 if env.deploy_tool == "git":
     env.repo_path = "/home/%s/git/%s.git" % (env.user, env.proj_name)
 else:
     env.repo_path = env.proj_path
-
 
 ##################
 # Template setup #
@@ -218,6 +218,7 @@ def log_call(func):
         header = "-" * len(func.__name__)
         _print(green("\n".join([header, func.__name__, header]), bold=True))
         return func(*args, **kawrgs)
+
     return logged
 
 
@@ -536,7 +537,7 @@ def create():
             pip("-r %s/%s" % (env.proj_path, env.reqs_path))
         pip("gunicorn setproctitle psycopg2 "
             "django-compressor python-memcached")
-    # Bootstrap the DB
+        # Bootstrap the DB
         manage("createdb --noinput --nodata")
         python("from django.conf import settings;"
                "from django.contrib.sites.models import Site;"
@@ -622,9 +623,9 @@ def deploy():
     if env.deploy_tool in env.vcs_tools:
         with cd(env.repo_path):
             if env.deploy_tool == "git":
-                    run("git rev-parse HEAD > %s/last.commit" % env.proj_path)
+                run("git rev-parse HEAD > %s/last.commit" % env.proj_path)
             elif env.deploy_tool == "hg":
-                    run("hg id -i > last.commit")
+                run("hg id -i > last.commit")
         with project():
             static_dir = static()
             if exists(static_dir):
@@ -665,10 +666,10 @@ def rollback():
         if env.deploy_tool in env.vcs_tools:
             with cd(env.repo_path):
                 if env.deploy_tool == "git":
-                        run("GIT_WORK_TREE={0} git checkout -f "
-                            "`cat {0}/last.commit`".format(env.proj_path))
+                    run("GIT_WORK_TREE={0} git checkout -f "
+                        "`cat {0}/last.commit`".format(env.proj_path))
                 elif env.deploy_tool == "hg":
-                        run("hg update -C `cat last.commit`")
+                    run("hg update -C `cat last.commit`")
             with project():
                 with cd(join(static(), "..")):
                     run("tar -xf %s/static.tar" % env.proj_path)
