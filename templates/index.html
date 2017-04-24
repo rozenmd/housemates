@@ -1,47 +1,60 @@
 {% extends "base.html" %}
-{% load i18n %}
+{% load i18n static %}
 
 {% block meta_title %}{% trans "Home" %}{% endblock %}
 {% block title %}{% trans "Home" %}{% endblock %}
 
 {% block breadcrumb_menu %}
-<li class="active">{% trans "Home" %}</li>
+    <li class="active">{% trans "Home" %}</li>
 {% endblock %}
 
 {% block main %}
-<div class="text-center">
-<h2>Welcome to BillDivider!</h2>
-<p>
-    BillDivider makes splitting bills in your group simpler.
-</p>
+    <div class="text-center">
+        <h2>Welcome to BillDivider!</h2>
+        <p>
+            BillDivider makes splitting bills in your group simpler.
+        </p>
 
-{% if request.user.is_authenticated %}
-{% if not request.user.group.first.id %}
-    <p>
-        <p class="text-center">You'll need to <a href="{% url "group_new" %}">start</a> or
-            <a href="{% url "group_find" %}">join</a> a group first!</p>
-    </p>
-{% else %}
-    <p>
-        You're already in a group!<br/>
-        Click on <a href="/bills/">Bills</a> to start adding bills, or
-        <a href="/dashboard/">Dashboard</a> to track who owes whom in your group.<br/><br/>
-        Click <a href="/invitations/send-invite/">here</a> to invite your friends!
-    </p>
-{% endif %}
-{% else %}
-<p>You'll need to <a href="/accounts/signup/">register</a> or <a href="/accounts/login/">login</a> first!</p>
-{%  endif %}
-<h3>How it works</h3>
-<ul class="text-left">
-    <li>You and your friends sign up and create a group</li>
-    <li>You all go out, incur some expenses, and log them in the Bills tab (Paying for Bills credits you towards Bills your friends pay for)</li>
-    <li>Once you've decided to settle the Bills, check out the Dashboard tab to see who needs to be paid.</li>
-    <li>As each friend transfers the person who is owed money, log the payment in the Payments tab.</li>
-</ul>
-<script src="https://gumroad.com/js/gumroad.js"></script>
-<a class="gumroad-button" href="https://gum.co/XkUlz" target="_blank">Please help keep BillDivider going!</a>
-</div>
+        {% if request.user.is_authenticated %}
+            {% if not request.user.group.first.id %}
+                <p>
+                <p class="text-center">You'll need to <a href="{% url "group_new" %}">start</a> or
+                    <a href="{% url "group_find" %}">join</a> a group first!</p>
+                </p>
+            {% else %}
+                <p>
+                    You're already in a group!<br/>
+                    Click on <a href="/bills/">Bills</a> to start adding bills, or
+                    <a href="/dashboard/">Dashboard</a> to track who owes whom in your group.<br/><br/>
+                    Click <a href="/invitations/send-invite/">here</a> to invite your friends!
+                </p>
+            {% endif %}
+        {% else %}
+
+            <div class="text-center">
+                <p>You'll need to <a href="/accounts/signup/">register</a> or <a href="/accounts/login/">login</a>
+                    first!</p>
+                <hr>
+                <a href="{% url 'social:begin' 'twitter' %}"><img
+                        src="{% static "img/sign-in-with-twitter-gray.png" %}"></a>
+                <hr>
+                <a href="{% url 'social:begin' 'facebook' %}"><img width="158px"
+                                                                   src="{% static "img/login-with-facebook.png" %}"></a>
+                <hr>
+            </div>
+        {% endif %}
+        <h3>How it works</h3>
+        <ul class="text-left">
+            <li>You and your friends sign up and create a group</li>
+            <li>You all go out, incur some expenses, and log them in the Bills tab (Paying for Bills credits you towards
+                Bills your friends pay for)
+            </li>
+            <li>Once you've decided to settle the Bills, check out the Dashboard tab to see who needs to be paid.</li>
+            <li>As each friend transfers the person who is owed money, log the payment in the Payments tab.</li>
+        </ul>
+        <script src="https://gumroad.com/js/gumroad.js"></script>
+        <a class="gumroad-button" href="https://gum.co/XkUlz" target="_blank">Please help keep BillDivider going!</a>
+    </div>
 
 
 {% endblock %}
