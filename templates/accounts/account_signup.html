@@ -1,8 +1,17 @@
 {% extends "accounts/account_form.html" %}
-{% load i18n %}
+{% load i18n static %}
 
 {% block main %}
+    <h2>
+    Sign up!
+    </h2>
+ <div class="text-center">
+        <a href="{% url 'social:begin' 'twitter' %}"><img src="{% static "img/sign-in-with-twitter-gray.png" %}"></a>
 
+        <hr>
+        <p><strong>-- OR --</strong></p>
+        <hr>
+    </div>
 {% if request.user.is_authenticated %}
     <p>{% trans "You're already logged in. If you'd like to create a new account, you'll need to log out first." %}</p>
 {% else %}

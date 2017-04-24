@@ -129,7 +129,11 @@ SITE_ID = 1
 # to load the internationalization machinery.
 USE_I18N = False
 
-AUTHENTICATION_BACKENDS = ("mezzanine.core.auth_backends.MezzanineBackend",)
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.twitter.TwitterOAuth',
+    'social_core.backends.facebook.FacebookOAuth2',
+    "mezzanine.core.auth_backends.MezzanineBackend",
+)
 
 # The numeric mode to set newly-uploaded files to. The value should be
 # a mode you'd pass directly to os.chmod.
@@ -213,6 +217,8 @@ TEMPLATES = [
                 "django.template.context_processors.tz",
                 "mezzanine.conf.context_processors.settings",
                 "mezzanine.pages.context_processors.page",
+                'social_django.context_processors.backends',  # <--
+                'social_django.context_processors.login_redirect',  # <--
             ],
             "builtins": [
                 "mezzanine.template.loader_tags",
@@ -255,6 +261,8 @@ INSTALLED_APPS = (
     "mezzanine.galleries",
     "mezzanine.twitter",
     "mezzanine.accounts",
+    'social_django',  # <--
+
     # "mezzanine.mobile",
 )
 
@@ -286,6 +294,8 @@ MIDDLEWARE_CLASSES = (
     "mezzanine.core.middleware.SitePermissionMiddleware",
     "mezzanine.pages.middleware.PageMiddleware",
     "mezzanine.core.middleware.FetchFromCacheMiddleware",
+    'social_django.middleware.SocialAuthExceptionMiddleware',  # <--
+
 )
 
 # Store these package names here as they may change in the future since

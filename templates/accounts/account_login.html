@@ -1,17 +1,33 @@
 {% extends "accounts/account_form.html" %}
-{% load i18n %}
+{% load i18n static %}
 
 {% block main %}
+    <h2>
+        Login
+    </h2>
+    <div class="text-center">
+        <a href="{% url 'social:begin' 'twitter' %}"><img src="{% static "img/sign-in-with-twitter-gray.png" %}"></a>
 
-{% if request.user.is_authenticated %}
-    <p>{% trans "You're already logged in. If you'd like to log in as a different user, you'll need to log out first." %}</p>
-{% else %}
-    {{ block.super }}
-    {% url "signup" as signup_url %}
-    <p>{% blocktrans with request.GET.next as next %}If you don't have an account you can <a href="{{ signup_url }}?next={{ next }}">sign up</a> for one now.{% endblocktrans %}</p>
-    {% url "mezzanine_password_reset" as password_reset_url %}
-    {% url "profile_update" as profile_update_url %}
-    {% blocktrans %}<p>You can also <a href="{{ password_reset_url }}?next={{ profile_update_url }}">reset your password</a> if you've forgotten it.</p>{% endblocktrans %}</p>
-{% endif %}
+        <hr>
+        <p><strong>-- OR --</strong></p>
+        <hr>
+    </div>
+    <div style="">
+    {% if request.user.is_authenticated %}
+        <p>{% trans "You're already logged in. If you'd like to log in as a different user, you'll need to log out first." %}</p>
+    {% else %}
+        {{ block.super }}
+        {% url "signup" as signup_url %}
 
+        <p>{% blocktrans with request.GET.next as next %}If you don't have an account you can
+            <a href="{{ signup_url }}?next={{ next }}">sign up</a> for one now.{% endblocktrans %}</p>
+        {% url "mezzanine_password_reset" as password_reset_url %}
+        {% url "profile_update" as profile_update_url %}
+        {% blocktrans %}
+            <p>You can also <a href="{{ password_reset_url }}?next={{ profile_update_url }}">reset your password</a> if
+                you've forgotten it.</p>{% endblocktrans %}</p>
+
+
+    {% endif %}
+    </div>
 {% endblock %}
