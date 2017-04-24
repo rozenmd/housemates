@@ -461,12 +461,447 @@ footer{
     margin-bottom:15px;
 }
 
-.container{
-    margin:0 auto;
-    max-width: 1600px;
-    width:58%;
-    background-color:white;
+
+
+
+/*Media queries*/
+@media all and (max-width: 1400px), screen and (max-device-width: 1400px) {
+  .col-4-12 .thumbnail img {
+    width: auto;
+    margin: auto;
+    height: 180px;
+    display: block;
+  }
 }
+@media all and (max-width: 1300px), screen and (max-device-width: 1300px) {
+  li#home {
+    display: none;
+  }
+  .container {
+    width: 74%;
+  }
+  nav li a,
+  nav li a:visited {
+    padding: 0 12px!important;
+  }
+  nav ul {
+    margin-right: -12px;
+  }
+}
+@media all and (max-width: 1250px), screen and (max-device-width: 1250px) {
+  html,
+  body {
+    font-size: 94%;
+  }
+  .container {
+    width: 78%;
+  }
+  .logo img {
+    height: 60px;
+  }
+  nav .accountMenu,
+  nav #menu {
+    line-height: 30px;
+  }
+  nav #menu {
+    margin-top: 30px;
+  }
+  .col-4-12 .thumbnail img {
+    width: auto;
+    margin: auto;
+    height: 150px;
+    display: block;
+  }
+  footer form.newsletterForm .form-group {
+    width: 60%;
+  }
+}
+@media all and (max-width: 1024px), screen and (max-device-width: 1024px) {
+  .homeBanner .caption {
+    left: 4%;
+  }
+  .homeBanner .caption h1 {
+    font-size: 2.4em;
+  }
+  .homeBanner .caption .subtext {
+    font-size: 1.4em;
+  }
+  .homeBanner form .form-group {
+    width: 65%;
+  }
+  html,
+  body {
+    font-size: 90%;
+  }
+  header {
+    padding: 16px 0;
+  }
+  .topbotmargin-40 {
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+  .container {
+    width: 84%;
+  }
+  .logo img {
+    height: 60px;
+  }
+  nav .accountMenu,
+  nav #menu {
+    line-height: 30px;
+  }
+  nav #menu {
+    margin-top: 30px;
+  }
+  nav li a,
+  nav li a:visited {
+    padding: 0 10px!important;
+  }
+  nav ul {
+    margin-right: -10px;
+  }
+  footer form.newsletterForm .subtext {
+    font-size: 1.2em;
+  }
+  footer form.newsletterForm .form-group {
+    width: 57%;
+  }
+  /*
+	nav #menu {
+		li#home {
+			display: none;
+		}
+	}
+	.logo {
+		img {
+			height:60px;padding:12px 0;
+		}
+	}
+	nav {
+		.dropdown-menu {
+			li.age, li.categories {
+				width: 50%;
+			}
 
-
+		}
+	}*/
+}
+@media all and (max-width: 768px), screen and (max-device-width: 768px) {
+  .container {
+    width: 88%;
+  }
+  .logo img {
+    height: 50px;
+  }
+  nav .accountMenu,
+  nav #menu {
+    line-height: 25px;
+  }
+  nav #menu {
+    margin-top: 25px;
+  }
+  .sideBar {
+    border-bottom: 2px solid #cfcfcf;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+  }
+  .productRow {
+    border-bottom: 0;
+    margin-bottom: 0;
+  }
+  .productRow .col-3-12 {
+    width: 25%;
+  }
+  .productRow .col-3-12 .thumbnail img {
+    height: 120px;
+    width: auto;
+  }
+  .productRow .col-4-12 {
+    width: 33.33333333%;
+  }
+  .bookRow .productImage {
+    width: 30%;
+  }
+  .bookRow .col-7-12 {
+    width: 70%;
+  }
+}
+/*ipad LANDSCAPE*/
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) {
+  .container {
+    width: 84%;
+  }
+  .logo img {
+    height: 60px;
+  }
+  nav .accountMenu,
+  nav #menu {
+    line-height: 30px;
+  }
+  nav #menu {
+    margin-top: 30px;
+  }
+  .sideBar {
+    width: 25%;
+    border-bottom: 0;
+    padding-bottom: 0;
+    margin-bottom: 0;
+  }
+  .productRow {
+    border-bottom: 2px solid #cfcfcf;
+    border-width: 1px;
+    margin-bottom: 20px;
+  }
+  .productRow .col-3-12 {
+    width: 25%;
+  }
+  .productRow .col-3-12 .thumbnail img {
+    height: 150px;
+    width: auto;
+  }
+  .productRow .col-4-12 {
+    width: 33.33333333%;
+  }
+  .bookRow .productImage {
+    width: 41.66666666%;
+  }
+  .bookRow .col-7-12 {
+    width: 58.33333333%;
+  }
+}
+/*ipad PORTRAIT*/
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: portrait) {
+  .container {
+    width: 88%;
+  }
+  .logo img {
+    height: 50px;
+  }
+  nav .accountMenu,
+  nav #menu {
+    line-height: 25px;
+  }
+  nav #menu {
+    margin-top: 25px;
+  }
+  .sideBar {
+    width: 100%;
+    border-bottom: 2px solid #cfcfcf;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+  }
+  .productRow {
+    border-bottom: 0;
+    margin-bottom: 0;
+  }
+  .productRow .col-3-12 {
+    width: 25%;
+  }
+  .productRow .col-3-12 .thumbnail img {
+    height: 120px;
+    width: auto;
+  }
+  .productRow .col-4-12 {
+    width: 33.33333333%;
+  }
+  .bookRow .productImage {
+    width: 30%;
+  }
+  .bookRow .col-7-12 {
+    width: 70%;
+  }
+}
+@media all and (max-width: 767px), screen and (max-device-width: 767px) {
+  .container {
+    width: 92%;
+  }
+  header {
+    padding: 12px 0;
+  }
+  .mobileOnly {
+    display: block;
+  }
+  .productRow {
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+  .productRow .col-3-12 {
+    width: 50%;
+    margin-bottom: 30px;
+  }
+  .productRow .col-3-12 .thumbnail img {
+    height: 120px;
+    width: auto;
+  }
+  .productRow .col-4-12 {
+    width: 50%;
+    float: none;
+    margin: auto;
+    margin-bottom: 30px;
+  }
+  .productRow .col-4-12 .thumbnail img {
+    width: 100%;
+    height: auto;
+  }
+  .logo img {
+    height: 44px;
+    padding: 3px 0;
+    width: auto;
+  }
+  .menu-icon {
+    display: block;
+  }
+  nav .accountMenu li a,
+  nav .accountMenu li a:visited {
+    padding: 0 6px!important;
+    font-size: 15px;
+  }
+  nav ul#menu {
+    margin-right: 0;
+  }
+  nav #menu {
+    display: none;
+    position: absolute;
+    z-index: 9999;
+    top: 62px;
+    left: 0;
+    width: 100%;
+    border: 2px solid #444444;
+    margin-top: 0;
+  }
+  nav #menu li {
+    width: 100%;
+    float: none;
+  }
+  nav #menu li a,
+  nav #menu li a:visited {
+    line-height: 40px;
+    background: #ffffff;
+  }
+  nav #menu .dropdown-menu {
+    width: 100%;
+    margin-top: 0;
+    position: relative;
+    border: 0;
+    padding-left: 14px;
+  }
+  nav .accountMenu {
+    line-height: 50px;
+    position: relative;
+  }
+  .homeBanner .caption {
+    left: 4%;
+  }
+  .homeBanner .caption h1 {
+    letter-spacing: 0;
+    font-size: 1.8em;
+    width: 80%;
+  }
+  .homeBanner .caption .subtext {
+    display: none;
+  }
+  .homeBanner form {
+    display: none;
+  }
+  form.newsletterForm {
+    background: #E8E8E8;
+    padding: 12px;
+    margin-top: 6px;
+  }
+  form.newsletterForm .subtext {
+    font-size: 1.4em;
+    margin-bottom: 12px;
+  }
+  form.newsletterForm .form-group {
+    margin-bottom: 0;
+  }
+  form.newsletterForm button[type="submit"] {
+    width: 100%;
+    line-height: 36px;
+    font-size: 1.1em;
+    border: 0;
+    padding: 0;
+  }
+  form.newsletterForm input {
+    line-height: 36px;
+    font-size: 1.1em;
+    background: #ffffff;
+    border: 0;
+    padding: 0 10px;
+  }
+  .mainSearchForm {
+    margin-top: 12px;
+  }
+  .mainSearchForm .ten {
+    width: 62%;
+  }
+  .mainSearchForm .five {
+    width: 27%;
+  }
+  .mainSearchForm .one {
+    width: 11%;
+  }
+  .copyright,
+  .credit {
+    width: 100%;
+    float: none;
+  }
+  .credit {
+    margin-top: 10px;
+  }
+  .credit .floatRight {
+    float: none;
+  }
+  .credit .socialMedia {
+    margin-bottom: 10px;
+    float: left;
+  }
+  .credit .socialMedia li {
+    float: none;
+  }
+  .topbotmargin-40 {
+    margin-top: 24px;
+    margin-bottom: 24px;
+  }
+  footer form.newsletterForm {
+    padding: 12px;
+    margin: 20px 0;
+  }
+  footer form.newsletterForm .subtext,
+  footer form.newsletterForm .form-group {
+    float: none;
+  }
+  footer form.newsletterForm button[type="submit"] {
+    line-height: 34px;
+  }
+  footer form.newsletterForm .subtext {
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+  footer form.newsletterForm .form-group {
+    width: 100%;
+  }
+  .bookRow .productImage {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  .bookRow .productImage img {
+    width: 50%;
+    padding-left: 6px;
+    padding-right: 6px;
+  }
+  .bookRow .col-7-12 {
+    width: 100%;
+    text-align: center;
+  }
+  .bookRow .col-7-12 .btn {
+    float: none;
+  }
+  .bookRow .col-7-12 .productDetails .price {
+    margin: 12px 0;
+  }
+  .moreProducts {
+    margin-top: 50px;
+  }
+}
 

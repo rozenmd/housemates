@@ -10,24 +10,24 @@
         <p class="text-center">You'll need to <a href="{% url "group_new" %}">start</a> or
             <a href="{% url "group_find" %}">join</a> a group first!</p>
     {% else %}
-        <a href="{% url "group_new" %}">New</a> | <a href="{% url "group_find" %}">Join</a>
+        <a class="btn btn-primary"  href="{% url "group_new" %}">New</a> | <a class="btn btn-info" href="{% url "group_find" %}">Join</a>
 
             {% for group in object_list %}
         <div class="col-xs-12 col-sm-12">
             <div class="row">
                 <div class="col-xs-4 col-sm-4">
-                    {{ group.name }}
+                    <h3>{{ group.name }}</h3>
                 </div>
                 <div class="col-xs-8 col-sm-8">
-                    <a href="{% url "set_current_group" group.id %}">Set Current</a>
+                    <a class="btn btn-primary" href="{% url "set_current_group" group.id %}">Set Current</a>
                         {% for house in request.user.group.all %}
                             {% if house.group.id == group.id %}
-                            |     <a href="{% url "group_read" group.id %}">Members List</a>
+                            |     <a class="btn btn-info" href="{% url "group_read" group.id %}">Members List</a>
                             {% endif %}
                         {% endfor %}
 
-                    | <a href="{% url "group_edit" group.id %}">Edit Group</a>
-                    | <a href="{% url "group_delete" group.id %}">Delete Group</a>
+                    | <a class="btn btn-primary" href="{% url "group_edit" group.id %}">Edit Group</a>
+                    | <a class="btn btn-danger" href="{% url "group_delete" group.id %}">Delete Group</a>
                 </div>
             </div>
         </div>
