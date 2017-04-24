@@ -6,28 +6,30 @@
 {% block body_id %}account{% endblock %}
 
 {% block breadcrumb_menu %}
-{{ block.super }}
-<h3>{{ title }}</h3>
+    {{ block.super }}
+    <h3>{{ title }}</h3>
 {% endblock %}
 
 {% block main %}
 
-{% errors_for form %}
+    {% errors_for form %}
 
 
-<form method="post"{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
+    <form method="post"{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
 
-    <fieldset>
-    <legend>{{ title }}</legend>
-        <p>(Email is case sensitive)</p>
-    <a href="/settings/">Social Network settings</a>
-    {% fields_for form %}
+        <fieldset>
+            <legend>{{ title }}</legend>
+            <p>(Email is case sensitive)</p>
+            {% if request.user.is_authenticated %}
+                <a href="/settings/">Social Network settings</a>
+            {% endif %}
+            {% fields_for form %}
 
-    <div class="form-actions">
-        {% block account_form_actions %}
-        <input class="btn btn-primary btn-lg pull-right" type="submit" value="{{ title }}">
-        {% endblock %}
-    </div>
-    </fieldset>
-</form>
+            <div class="form-actions">
+                {% block account_form_actions %}
+                    <input class="btn btn-primary btn-lg pull-right" type="submit" value="{{ title }}">
+                {% endblock %}
+            </div>
+        </fieldset>
+    </form>
 {% endblock %}
