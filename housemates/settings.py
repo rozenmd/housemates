@@ -1,10 +1,8 @@
-
 from __future__ import absolute_import, unicode_literals
 import os
 
 from django import VERSION as DJANGO_VERSION
 from django.utils.translation import ugettext_lazy as _
-
 
 ######################
 # MEZZANINE SETTINGS #
@@ -85,14 +83,13 @@ from django.utils.translation import ugettext_lazy as _
 # INSTALLED_APPS setting.
 USE_MODELTRANSLATION = False
 
-
 ########################
 # MAIN DJANGO SETTINGS #
 ########################
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = ['localhost','127.0.0.1', 'housemates.maxrozen.com','billdivider.com','www.billdivider.com']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'housemates.maxrozen.com', 'billdivider.com', 'www.billdivider.com']
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -139,7 +136,6 @@ AUTHENTICATION_BACKENDS = (
 # a mode you'd pass directly to os.chmod.
 FILE_UPLOAD_PERMISSIONS = 0o644
 
-
 #############
 # DATABASES #
 #############
@@ -160,7 +156,6 @@ DATABASES = {
         "PORT": "",
     }
 }
-
 
 #########
 # PATHS #
@@ -230,7 +225,6 @@ TEMPLATES = [
 if DJANGO_VERSION < (1, 9):
     del TEMPLATES[0]["OPTIONS"]["builtins"]
 
-
 ################
 # APPLICATIONS #
 ################
@@ -268,6 +262,8 @@ INSTALLED_APPS = (
 
 EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"  # or sendgrid.EmailBackend, or...
 DEFAULT_FROM_EMAIL = "noreply@mail.billdivider.com"  # if you don't already have this in settings
+ADMINS = [('Max Rozen', 'rozenmd@gmail.com')]
+
 SOCIAL_AUTH_LOGIN_ERROR_URL = '/login/'
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/accounts/update/'
 SOCIAL_AUTH_RAISE_EXCEPTIONS = False
@@ -337,12 +333,12 @@ f = os.path.join(PROJECT_APP_PATH, "local_settings.py")
 if os.path.exists(f):
     import sys
     import imp
+
     module_name = "%s.local_settings" % PROJECT_APP
     module = imp.new_module(module_name)
     module.__file__ = f
     sys.modules[module_name] = module
-    exec(open(f, "rb").read())
-
+    exec (open(f, "rb").read())
 
 ####################
 # DYNAMIC SETTINGS #
