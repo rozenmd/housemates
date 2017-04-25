@@ -12,6 +12,7 @@
     {% else %}
         <a class="btn btn-primary" href="{% url "group_new" %}">New</a>
         <a class="btn btn-info" href="{% url "group_find" %}">Join</a>
+        <a class="btn btn-info" href="/invitations/send-invite/">Invite friend to group</a>
         <hr>
         {% for group in object_list %}
             <div class="row">
