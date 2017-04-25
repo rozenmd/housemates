@@ -113,7 +113,7 @@ def set_current_group(request, pk):
         profile.current_group = group.first()
         profile.save()
     else:
-        MyProfile(user=request.user, current_group=group).save()
+        MyProfile(user=request.user, current_group=group.first()).save()
     messages.add_message(request, messages.INFO, 'Current group updated!')
 
     return redirect('group_list')
