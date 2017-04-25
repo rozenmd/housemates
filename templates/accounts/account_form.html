@@ -14,7 +14,9 @@
 
     {% errors_for form %}
 
-
+<div class="row">
+    <div class="col-sm-4 col-xs-1"></div>
+<div class="col-sm-4 col-xs-10 text-center">
     <form method="post"{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
 
         <fieldset>
@@ -32,4 +34,8 @@
             </div>
         </fieldset>
     </form>
+</div>
+    <div class="col-sm-4 col-xs-1"></div>
+
+</div>
 {% endblock %}

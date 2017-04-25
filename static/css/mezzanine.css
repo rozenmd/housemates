@@ -249,6 +249,7 @@ img.pull-left {
 .form-group > select,
 .form-group > textarea {
   display: block;
+  margin: 0 auto;
   width: 100%;
   max-width: 300px;
   height: 34px;
@@ -288,6 +289,7 @@ img.pull-left {
 }
 .form-group > textarea {
   height: auto;
+  margin: 0 auto;
   max-width: 400px;
 }
 .has-error > input[type="text"],
@@ -464,6 +466,7 @@ float the buttons inside it. This prevents collapsing. */
 .profile-image > img {
   margin-bottom: 20px;
 }
+
 
 /*========================================
           RESPONSIVE TWEAKS
